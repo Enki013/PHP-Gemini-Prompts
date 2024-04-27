@@ -1,8 +1,9 @@
 CREATE USER 'admin' @'%' IDENTIFIED WITH mysql_native_password BY 'adminpss';
 GRANT ALL PRIVILEGES ON *.* TO 'admin' @'%';
 FLUSH PRIVILEGES;
-CREATE DATABASE my_db;
+CREATE DATABASE my_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE my_db;
+ALTER DATABASE my_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 CREATE TABLE users (
   id int NOT NULL AUTO_INCREMENT,
   name text NOT NULL,

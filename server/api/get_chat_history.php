@@ -30,7 +30,7 @@ $statement->execute();
 $chat_history = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 
-header('Content-Type: application/json');
+header('Content-Type: application/json charset=UTF-8');
 http_response_code(200);
 echo json_encode($chat_history);
 ?>

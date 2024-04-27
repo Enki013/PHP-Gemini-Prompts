@@ -78,7 +78,7 @@ $options = array(
     CURLOPT_POST => true,
     CURLOPT_POSTFIELDS => $jsonData,
     CURLOPT_HTTPHEADER => array(
-        "Content-Type: application/json"
+        "Content-Type: application/json charset=UTF-8"
     )
 );
 
@@ -102,7 +102,7 @@ $statement->bindParam(':response', $responseMessage);
 $statement->execute();
 
 
-header('Content-Type: application/json');
+header('Content-Type: application/json charset=UTF-8');
 http_response_code(200);
 print(json_encode(["response"=> $responseData['candidates'][0]['content']['parts'][0]['text']]));
 

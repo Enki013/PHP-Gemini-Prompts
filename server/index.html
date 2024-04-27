@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<meta charset="UTF-8">
 
 <head>
     <meta content="width=device-width, initial-scale=1" name="viewport">
@@ -19,7 +20,7 @@
         crossorigin="anonymous">
     <script src="https://cdn.tailwindcss.com/3.4.1?plugins=forms,typography,aspect-ratio,line-clamp"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>src = "veriler.php"</script>
+    <script>src = "api/get_categories.php"</script>
     <style>
 
     </style>
@@ -36,18 +37,20 @@
                         class="text-gray-600 text-center mr-6 font-medium text-base">Product</a>
                     <a href="#" fontfamily="Raleway"
                         class="text-gray-600 text-center mr-6 font-medium text-base">Features</a>
-                    <a href="#" fontfamily="Raleway" class="text-gray-600 text-center font-medium text-base">Pricing</a>
                 </div>
                 <div class="bg-white flex-row flex items-center justify-center order-first md:order-none">
                     <img src="https://res.cloudinary.com/speedwares/image/upload/v1659284687/windframe-logo-main_daes7r.png"
                         class="w-12 md:w-16">
                 </div>
+
                 <div class="flex justify-center items-center md:justify-start hidden md:flex">
-                    <button fontfamily="Arial" class="h-9 w-24 text-gray-600 bg-white border-2 border-white flex items-center
-            justify-center text-center rounded-lg text-lg font-normal mr-6">Sign in</button>
-                    <button fontfamily="Arial" class="h-9 w-24 text-white bg-blue-700 hover:bg-blue-900 hover:border-blue-900
+                    <a href="login.html">
+                        <button fontfamily="Arial" class="h-9 w-24 text-gray-600 bg-white border-2 border-white flex items-center
+            justify-center text-center rounded-lg text-lg font-normal mr-6">Sign in</button></a>
+                    <a href="register.html">
+                        <button fontfamily="Arial" class="h-9 w-24 text-white bg-blue-700 hover:bg-blue-900 hover:border-blue-900
             border-2 flex items-center justify-center text-center border-blue-700 rounded-lg text-lg font-normal
-            mr-auto">Sign up</button>
+            mr-auto">Sign up</button></a>
                 </div>
                 <div class="md:hidden flex items-center">
                     <div class="outline-none mobile-menu-button">
@@ -158,59 +161,7 @@
                 });
 
 
-            // Kart verileri
-            var kategoriVerileri = [
-                {
-                    category: "Tag 1fgh",
 
-                },
-                {
-                    category: "Tag 2",
-
-                },
-                {
-                    category: "Tag 3",
-
-                },
-                {
-                    category: "Tag 4",
-
-                },
-                {
-                    category: "Tag 5",
-
-                },
-
-            ]
-
-            // kategori oluşturma işlevi
-            function kategoriolustur(veri_kategori) {
-                var kategoriHTML = `<li>
-                    <button onclick="selectCategory(this)" fontfamily="Arial" type="submit" class="category-button flex hover:bg-gray-50 focus:outline-none focus:ring-2
-                              focus:ring-indigo-500 focus:border-indigo-500 w-full text-left text-gray-700 bg-white rounded-md py-2
-                              px-3 justify-between items-center">${veri_kategori.category}
-                        <svg class="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" viewbox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg" id="Windframe_DpnwvqRF1">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </button>
-                </li>`;
-                return kategoriHTML;
-            }
-            // Kartları oluşturma işlevi
-            function kartOlustur(veri_kart) {
-                var kartHTML = `<div
-                    class="bg-white shadow-lg rounded-lg card m-2 p-6 transform transition duration-500 ease-in-out hover:scale-105">
-                    <span
-                        class="px-2 py-0.5 text-xs bg-gray-300 text-gray-500 rounded-full badge float-right">${veri_kart.category}</span>
-                    <p class="font-semibold text-blue-600 text-xl mb-3 block">${veri_kart.baslik}</p>
-                    <p class="text-gray-600 mb-6">${veri_kart.icerik}</p>
-                    <button fontfamily="Arial" type="submit" class="inline-flex focus:outline-none focus:ring-2 focus:ring-blue-600
-                                focus:ring-offset-2 w-full justify-center rounded-lg py-2 px-4 bg-blue-600 text-sm
-                                font-semibold text-white shadow-lg">Click me!</button>
-                </div>`;
-                return kartHTML;
-            }
             function selectCategory(button) {
                 var buttons = document.querySelectorAll('.category-button');
                 buttons.forEach(function (btn) {
@@ -221,22 +172,6 @@
                 button.classList.add('text-white', 'bg-blue-600', 'focus:ring-blue-600', 'focus:border-blue-600');
             }
 
-            // Kartları ekrana ekleme işlevi
-            function kartlariEkranaEkle() {
-                var kartlarDiv = document.getElementById("kartlar");
-                kartVerileri.forEach(function (veri_kart) {
-                    var kartHTML = kartOlustur(veri_kart);
-                    kartlarDiv.innerHTML += kartHTML;
-                });
-            }
-            // kategorileri ekrana ekleme işlevi
-            function kategorileriEkranaEkle() {
-                var kategorilerlist = document.getElementById("kategoriler");
-                kategoriVerileri.forEach(function (veri_kategori) {
-                    var kategoriHTML = kategoriolustur(veri_kategori);
-                    kategorilerlist.innerHTML += kategoriHTML;
-                });
-            }
 
             // Sayfa yüklendiğinde kartları ekrana ekle
             document.addEventListener("DOMContentLoaded", function () {
@@ -246,7 +181,37 @@
 
             });
 
-            // Kategori butonuna tıklandığında çalışacak işlev
+            // Kategorileri alma işlemi
+            fetch("api/get_categories.php")
+                .then(response => response.json())
+                .then(kategoriler => {
+                    // Kategoriler listesini al
+                    var kategoriListesi = document.getElementById("kategoriler");
+
+                    // Her kategori için düğmeler oluştur
+                    kategoriler.forEach(function (kategori) {
+                        // Yeni bir düğme oluştur
+                        var button = document.createElement("button");
+                        button.setAttribute("onclick", "selectCategory(this)");
+                        button.setAttribute("fontfamily", "Arial");
+                        button.setAttribute("type", "submit");
+                        button.setAttribute("class", "category-button id flex hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 w-full text-left text-gray-700 bg-white rounded-md py-2 px-3 justify-between items-center");
+                        //kategori idleri kartlara tanımla
+                        button.setAttribute("id", kategori.id);
+                        // Düğme metnini kategori adıyla ayarla
+                        button.innerText = kategori.name;
+                        // Düğmeyi bir liste öğesine ekle
+                        var listItem = document.createElement("li");
+                        listItem.appendChild(button);
+
+                        // Listeye ekle
+                        kategoriListesi.appendChild(listItem);
+                    });
+                })
+                .catch(error => {
+                    console.error('Hata:', error);
+                    // Hata durumunda kullanıcıya bir mesaj gösterebilirsiniz
+                });
             function selectCategory(button) {
                 var buttons = document.querySelectorAll('.category-button');
                 buttons.forEach(function (btn) {
@@ -255,36 +220,83 @@
                 });
                 button.classList.remove('bg-white', 'hover:bg-gray-50', 'focus:ring-2', 'focus:ring-indigo-500', 'focus:border-indigo-500', 'text-gray-700');
                 button.classList.add('text-white', 'bg-blue-600', 'focus:ring-blue-600', 'focus:border-blue-600');
-
-                // Seçilen kategorinin adını al
-                var selectedCategory = button.textContent.trim();
-
-                // Kategoriye göre kartları filtrele
-                filterCards(selectedCategory);
             }
-            function filterCards(category) {
-                var xhr = new XMLHttpRequest();
-                xhr.onreadystatechange = function () {
-                    if (this.readyState == 4 && this.status == 200) {
-                        // Kartları güncelleme
-                        document.getElementById("kartlar").innerHTML = this.responseText;
-                    }
-                };
-                xhr.open("GET", "veriler.php?category=" + category, true);
-                xhr.send();
-            }
-            console.log(kategoriVerileri);
-            console.log(kartVerileri);
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    var kartVerileri = JSON.parse(this.responseText);
-                    kartlariEkranaEkle(kartVerileri);
-                }
-            };
-            xhr.open("GET", "veriler.php", true);
-            xhr.send();
 
+            // Kategori seçildiğinde çağrılacak fonksiyon
+            function selectCategory(button) {
+                var buttons = document.querySelectorAll('.category-button');
+                buttons.forEach(function (btn) {
+                    btn.classList.remove('bg-blue-600', 'focus:ring-blue-600', 'focus:border-blue-600', 'text-white');
+                    btn.classList.add('bg-white', 'hover:bg-gray-50', 'focus:ring-2', 'focus:ring-indigo-500', 'focus:border-indigo-500', 'text-gray-700');
+                });
+                button.classList.remove('bg-white', 'hover:bg-gray-50', 'focus:ring-2', 'focus:ring-indigo-500', 'focus:border-indigo-500', 'text-gray-700');
+                button.classList.add('text-white', 'bg-blue-600', 'focus:ring-blue-600', 'focus:border-blue-600');
+                // Seçilen kategori adını alabilirsiniz
+                var categoryName = button.innerText;
+                console.log("Seçilen kategori: " + categoryName);
+                // Diğer işlemleri burada yapabilirsiniz
+
+            }
+            // Kategorilerden kartları listeleme işlemi
+            fetch("api/get_prompt_cards.php")
+                .then(response => response.json())
+                .then(kartlar => {
+                    // Kategorilerin id'lerini al
+                    var kategoriIds = kartlar.map(kart => kart.category_id);
+
+                    // Tekrar eden kategori id'lerini kaldır
+                    //var uniqueKategoriIds = [...new Set(kategoriIds)];
+
+                    // Her bir kategori için kartları listele
+                    kategoriIds.forEach(kategoriId => {
+                        // Kategorinin kartlarını al
+                        var kategoriKartlar = kartlar.filter(kart => kart.category_id === kategoriId);
+
+                        // Kartları listele
+                        kategoriKartlar.forEach(kart => {
+                            // Kartı oluştur
+                            var kartDiv = document.createElement("div");
+                            kartDiv.setAttribute("class", "bg-white shadow-lg rounded-lg card m-2 p-6 transform transition duration-500 ease-in-out hover:scale-105");
+
+                            // Kategori etiketi ekle
+                            var kategoriSpan = document.createElement("span");
+                            kategoriSpan.setAttribute("class", "px-2 py-0.5 text-xs bg-gray-300 text-gray-500 rounded-full badge float-right");
+                            kategoriSpan.innerText = kart.category;
+                            kartDiv.appendChild(kategoriSpan);
+
+                            // Başlık ekle
+                            var baslikP = document.createElement("p");
+                            baslikP.setAttribute("class", "font-semibold text-blue-600 text-xl mb-3 block");
+                            baslikP.innerText = kart.title;
+                            kartDiv.appendChild(baslikP);
+
+                            // İçerik ekle
+                            var icerikP = document.createElement("p");
+                            icerikP.setAttribute("class", "text-gray-600 mb-6");
+                            icerikP.innerText = kart.description;
+                            kartDiv.appendChild(icerikP);
+
+                            // Buton ekle
+                            var button = document.createElement("button");
+                            button.setAttribute("fontfamily", "Arial");
+                            button.setAttribute("type", "submit");
+                            button.setAttribute("class", "inline-flex focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 w-full justify-center rounded-lg py-2 px-4 bg-blue-600 text-sm font-semibold text-white shadow-lg");
+                            button.innerText = "Click me!";
+                            // Butona tıklandığında ilgili kartın prompt'unu gösteren bir fonksiyonu çağır
+                            button.addEventListener("click", function () {
+                                alert(kart.prompt);
+                            });
+                            kartDiv.appendChild(button);
+
+                            // Kartı sayfaya ekle
+                            document.getElementById("kartlar").appendChild(kartDiv);
+                        });
+                    });
+                })
+                .catch(error => {
+                    console.error('Hata:', error);
+                    // Hata durumunda kullanıcıya bir mesaj gösterebilirsiniz
+                });
         </script>
 </body>
 
