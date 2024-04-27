@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Screen</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .chat-messages {
+            max-height: 600px;
+            /* Maksimum yükseklik */
+            overflow-y: auto;
+            /* Dikey scroll bar */
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 h-screen flex items-center justify-center">
+    <div class="max-w-xl w-full bg-white rounded-lg shadow-lg overflow-hidden">
+        <div class="bg-gray-200 px-4 py-3 border-b border-gray-300 flex items-center justify-between">
+            <span class="text-lg font-semibold">Chat</span>
+            <button class="text-gray-600 hover:text-gray-800 focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="chat-messages px-4 py-6 space-y-4">
+            <div class="flex items-start">
+                <div class="flex-shrink-0">
+                    <img class="h-8 w-8 rounded-full" src="https://via.placeholder.com/150" alt="Sender">
+                </div>
+                <div class="ml-3 bg-blue-100 py-2 px-3 rounded-lg">
+                    <p class="text-sm text-gray-800">Merhaba! Nasılsın?</p>
+                    <span class="text-xs text-gray-500">Gemini</span>
+                </div>
+            </div>
+
+            <div class="flex items-end justify-end">
+                <div class="bg-gray-100 py-2 px-3 rounded-lg">
+                    <p class="text-sm text-gray-800">Merhaba! Ben iyiyim, teşekkürler.</p>
+                    <span class="text-xs text-gray-500">User</span>
+                </div>
+                <div class="flex-shrink-0 ml-3">
+                    <img class="h-8 w-8 rounded-full" src="https://via.placeholder.com/150" alt="Receiver">
+                </div>
+            </div>
+            <!-- add more message -->
+            <div class="chat-messages px-4 py-6 space-y-4">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0">
+                        <img class="h-8 w-8 rounded-full" src="https://via.placeholder.com/150" alt="Sender">
+                    </div>
+                    <div class="ml-3 bg-blue-100 py-2 px-3 rounded-lg">
+                        <p class="text-sm text-gray-800">Merhaba! Nasılsın?</p>
+                        <span class="text-xs text-gray-500">Gemini</span>
+                    </div>
+                </div>
+                <div class="flex items-end justify-end">
+                    <div class="bg-gray-100 py-2 px-3 rounded-lg">
+                        <p class="text-sm text-gray-800">Merhaba! Ben iyiyim, teşekkürler.</p>
+                        <span class="text-xs text-gray-500">User</span>
+                    </div>
+                    <div class="flex-shrink-0 ml-3">
+                        <img class="h-8 w-8 rounded-full" src="https://via.placeholder.com/150" alt="Receiver">
+                    </div>
+                </div>
+                <div class="flex items-end justify-end">
+                    <div class="bg-gray-100 py-2 px-3 rounded-lg">
+                        <p class="text-sm text-gray-800">Merhaba! Ben iyiyim, teşekkürler.</p>
+                        <span class="text-xs text-gray-500">User</span>
+                    </div>
+                    <div class="flex-shrink-0 ml-3">
+                        <img class="h-8 w-8 rounded-full" src="https://via.placeholder.com/150" alt="Receiver">
+                    </div>
+                </div>
+                <div class="flex items-end justify-end">
+                    <div class="bg-gray-100 py-2 px-3 rounded-lg">
+                        <p class="text-sm text-gray-800">Merhaba! Ben iyiyim, teşekkürler.</p>
+                        <span class="text-xs text-gray-500">User</span>
+                    </div>
+                    <div class="flex-shrink-0 ml-3">
+                        <img class="h-8 w-8 rounded-full" src="https://via.placeholder.com/150" alt="Receiver">
+                    </div>
+                </div>
+            </div>
+
+            <!-- add more message -->
+        </div>
+        <div class="bg-gray-200 px-4 py-3 flex items-center">
+            <input type="text" placeholder="Mesajınızı yazın..."
+                class="flex-1 px-4 py-2 bg-gray-100 rounded-full focus:outline-none">
+            <button
+                class="ml-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full focus:outline-none">Gönder</button>
+        </div>
+    </div>
+</body>
+
+</html>
