@@ -17,103 +17,105 @@
     </style>
     <script>src = "api/login.php"</script>
     <div class="min-w-screen min-h-screen  flex items-center justify-center px-5 py-5">
-                <div class="bg-gray-100 text-gray-500 rounded-3xl shadow-x1 w-full overflow-hidden" style="max-width:1000px">
+        <div class="bg-gray-100 text-gray-500 rounded-3xl shadow-x1 w-full overflow-hidden" style="max-width:1000px">
             <div class="md:flex w-full">
                 <div class="hidden md:block w-1/2 bg-indigo-500 py-10 px-10">
                     <!-- svg -->
-                    </div>
-        <div class="bg-gray-100 text-gray-500 rounded-3xl shadow-x1 w-full overflow-hidden" style="max-width:1000px">
-
-            
-            <div class="w-full py-10 px-5 md:px-10 shadow-x1">
-                <div class="text-center mb-10">
-                    <h1 class="font-bold text-3xl text-gray-900">LOGIN</h1>
-                    <p>Enter your credentials to login</p>
                 </div>
-                <div>
-                    <form id="loginForm" class="max-w-md mx-auto" method="post" action="api/login.php">
-                        <!-- username -->
-                        <div class="w-full px-3 mb-5">
-                            <label for="" class="text-xs font-semibold px-1">Username</label>
-                            <div class="flex">
-                                <div
-                                    class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                                    <i class="mdi mdi-email-outline text-gray-400 text-lg"></i>
+                <div class="bg-gray-100 text-gray-500 rounded-3xl shadow-x1 w-full overflow-hidden"
+                    style="max-width:1000px">
+
+
+                    <div class="w-full py-10 px-5 md:px-10 shadow-x1">
+                        <div class="text-center mb-10">
+                            <h1 class="font-bold text-3xl text-gray-900">LOGIN</h1>
+                            <p>Enter your credentials to login</p>
+                        </div>
+                        <div>
+                            <form id="loginForm" class="max-w-md mx-auto" method="post" action="api/login.php">
+                                <!-- email -->
+                                <div class="w-full px-3 mb-5">
+                                    <label for="" class="text-xs font-semibold px-1">email</label>
+                                    <div class="flex">
+                                        <div
+                                            class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
+                                            <i class="mdi mdi-email-outline text-gray-400 text-lg"></i>
+                                        </div>
+                                        <input type="text" id="email" name="email" required
+                                            class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                                            placeholder="enes@example.com">
+                                    </div>
                                 </div>
-                                <input type="text" id="username" name="username" required
-                                    class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-                                    placeholder="enes@example.com">
-                            </div>
-                        </div>
-                        <!-- password -->
-                        <div class="w-full px-3 mb-12">
-                            <label for="" class="text-xs font-semibold px-1">Password</label>
-                            <div class="flex">
-                                <div
-                                    class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                                    <i class="mdi mdi-lock-outline text-gray-400 text-lg"></i>
+                                <!-- password -->
+                                <div class="w-full px-3 mb-12">
+                                    <label for="" class="text-xs font-semibold px-1">Password</label>
+                                    <div class="flex">
+                                        <div
+                                            class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
+                                            <i class="mdi mdi-lock-outline text-gray-400 text-lg"></i>
+                                        </div>
+                                        <input type="password" id="password" name="password" required
+                                            class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                                            placeholder="************">
+                                    </div>
                                 </div>
-                                <input type="password" id="password" name="password" required
-                                    class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-                                    placeholder="************">
+                                <!-- login -->
+                                <div class="w-full px-3 mb-5">
+                                    <button
+                                        class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">LOGIN</button>
+                                </div>
+                            </form>
+                            <div id="errorDiv" class="text-red-500 text-center mt-5"></div>
+                            <div class="text-center mt-5">
+                                <p>Don't have an account? <a href="register.html">Register</a></p>
                             </div>
+
                         </div>
-                        <!-- login -->
-                        <div class="w-full px-3 mb-5">
-                            <button
-                                class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">LOGIN</button>
-                        </div>
-                    </form><div id="errorDiv" class="text-red-500 text-center mt-5"></div>
-                    <div class="text-center mt-5">
-                        <p>Don't have an account? <a href="register.html">Register</a></p>
                     </div>
-                    
                 </div>
             </div>
-        </div>
-    </div>
-    <script>
-        // Formun submit olayını dinle
-        document.getElementById("loginForm").addEventListener("submit", function (event) {
-            // Formun varsayılan davranışını engelle (sayfanın yenilenmesini önle)
-            event.preventDefault();
+            <script>
+                // Formun submit olayını dinle
+                document.getElementById("loginForm").addEventListener("submit", function (event) {
+                    // Formun varsayılan davranışını engelle (sayfanın yenilenmesini önle)
+                    event.preventDefault();
 
-            // Form verilerini al
-            var formData = new FormData(this);
+                    // Form verilerini al
+                    var formData = new FormData(this);
 
-            // Verileri JSON formatına dönüştür
-            var jsonData = {};
-            formData.forEach(function (value, key) {
-                jsonData[key] = value;
-            });
-            var jsonPayload = JSON.stringify(jsonData);
+                    // Verileri JSON formatına dönüştür
+                    var jsonData = {};
+                    formData.forEach(function (value, key) {
+                        jsonData[key] = value;
+                    });
+                    var jsonPayload = JSON.stringify(jsonData);
 
-            // POST isteği gönder
-            fetch("api/login.php", {
-                method: "POST",
-                body: jsonPayload,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    // Başarılı cevap alındığında
-                    if (data.token) {
-                        alert("Login successful. Token: " + data.token);
-                        // İsteği gönderen formu sıfırla
-                        document.getElementById("loginForm").reset();
-                    } else {
-                        // Hata durumunda
-                        document.getElementById("errorDiv").innerText = data.error;
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    document.getElementById("errorDiv").innerText = "Bir hata oluştu, lütfen daha sonra tekrar deneyin.";
+                    // POST isteği gönder
+                    fetch("api/login.php", {
+                        method: "POST",
+                        body: jsonPayload,
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            // Başarılı cevap alındığında
+                            if (data.token) {
+                                alert("Login successful. Token: " + data.token);
+                                // İsteği gönderen formu sıfırla
+                                document.getElementById("loginForm").reset();
+                            } else {
+                                // Hata durumunda
+                                document.getElementById("errorDiv").innerText = data.error;
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            document.getElementById("errorDiv").innerText = "Bir hata oluştu, lütfen daha sonra tekrar deneyin.";
+                        });
                 });
-        });
-    </script>
+            </script>
 </body>
 
 </html>

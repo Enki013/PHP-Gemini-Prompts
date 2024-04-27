@@ -8,7 +8,7 @@ CREATE TABLE users (
   id int NOT NULL AUTO_INCREMENT,
   name text NOT NULL,
   surname text NOT NULL,
-  username text NOT NULL,
+  email text NOT NULL,
   password text NOT NULL,
   token text NOT NULL,
   PRIMARY KEY (id)
