@@ -47,13 +47,7 @@ require_once("api/check_session.php");
                 </div>
 
                 <div class="flex justify-center items-center md:justify-start hidden md:flex">
-                    <a href="login.html">
-                        <button fontfamily="Arial" class="h-9 w-24 text-gray-600 bg-white border-2 border-white flex items-center
-            justify-center text-center rounded-lg text-lg font-normal mr-6">Sign in</button></a>
-                    <a href="register.html">
-                        <button fontfamily="Arial" class="h-9 w-24 text-white bg-blue-700 hover:bg-blue-900 hover:border-blue-900
-            border-2 flex items-center justify-center text-center border-blue-700 rounded-lg text-lg font-normal
-            mr-auto">Sign up</button></a>
+
                     <a href="api/logout.php">
                         <button fontfamily="Arial" class="h-9 w-24 text-gray-600 bg-white border-2 border-white flex items-center
                                     justify-center text-center rounded-lg text-lg font-normal mr-6"
@@ -157,162 +151,91 @@ require_once("api/check_session.php");
                 <!-- kart itemleri -->
             </div>
         </div>
-        <script>
-            const btn = document.querySelector(" .mobile-menu-button"); const
-                menu = document.querySelector(".mobile-menu"); btn.addEventListener("click", () => {
-                    menu.classList.toggle("hidden");
-                });
+<script>
+    // Kategorilere göre kartları filtrelemek için bir obje oluştur
+    const kartlarByKategori = {};
 
+    // Tüm kartlar
+    let allKartlar = [];
 
+    // Kategorilere göre kartları filtreleme fonksiyonu
+    function filterKartlar(kategoriId) {
+        const kartlar = kategoriId === 'all' ? allKartlar : kartlarByKategori[kategoriId];
+        // Kartları temizle
+        document.getElementById("kartlar").innerHTML = "";
+        // Her bir kart için HTML oluştur
+        kartlar.forEach(kart => {
+            const kartHTML = `
+                <div class="kategori-${kart.category_id} bg-white shadow-lg rounded-lg card m-2 p-6 transform transition duration-500 ease-in-out hover:scale-105">
+                    <span class="px-2 py-0.5 text-xs bg-gray-300 text-gray-500 rounded-full badge float-right">${kategoriAdiById[kart.category_id]}</span>
+                    <p class="font-semibold text-blue-600 text-xl mb-3 block">${kart.title}</p>
+                    <p class="text-gray-600 mb-6">${kart.description}</p>
+                    <button type="button" class="inline-flex focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 w-full justify-center rounded-lg py-2 px-4 bg-blue-600 text-sm font-semibold text-white shadow-lg" onclick="showPrompt('${kart.prompt}')">Click me!</button>
+                </div>
+            `;
+            // Kartı sayfaya ekle
+            document.getElementById("kartlar").innerHTML += kartHTML;
+        });
+    }
 
-            function selectCategory(button) {
-                var buttons = document.querySelectorAll('.category-button');
-                buttons.forEach(function (btn) {
-                    btn.classList.remove('bg-blue-600', 'focus:ring-blue-600', 'focus:border-blue-600', 'text-white');
-                    btn.classList.add('bg-white', 'hover:bg-gray-50', 'focus:ring-2', 'focus:ring-indigo-500', 'focus:border-indigo-500', 'text-gray-700');
-                });
-                button.classList.remove('bg-white', 'hover:bg-gray-50', 'focus:ring-2', 'focus:ring-indigo-500', 'focus:border-indigo-500', 'text-gray-700');
-                button.classList.add('text-white', 'bg-blue-600', 'focus:ring-blue-600', 'focus:border-blue-600');
-            }
+    const kategoriAdiById = {};
 
-
-            // Sayfa yüklendiğinde kartları ekrana ekle
-            document.addEventListener("DOMContentLoaded", function () {
-
-                kategorileriEkranaEkle();
-                // kartlariEkranaEkle();
-
+    fetch("api/get_categories.php")
+        .then(response => response.json())
+        .then(kategoriler => {
+            kategoriler.forEach(kategori => {
+                kategoriAdiById[kategori.id] = kategori.name;
             });
 
-            // Kategorileri alma işlemi
-            fetch("api/get_categories.php")
-                .then(response => response.json())
-                .then(kategoriler => {
-                    // Kategoriler listesini al
-                    var kategoriListesi = document.getElementById("kategoriler");
+            const kategorilerListesi = document.getElementById("kategoriler");
 
-                    // Her kategori için düğmeler oluştur
-                    kategoriler.forEach(function (kategori) {
-                        // Yeni bir düğme oluştur
-                        var button = document.createElement("button");
-                        button.setAttribute("onclick", "selectCategory(this)");
-                        button.setAttribute("fontfamily", "Arial");
-                        button.setAttribute("type", "submit");
-                        button.setAttribute("class", "category-button id flex hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 w-full text-left text-gray-700 bg-white rounded-md py-2 px-3 justify-between items-center");
-                        //kategori idleri kartlara tanımla
-                        button.setAttribute("id", kategori.id);
-                        // Düğme metnini kategori adıyla ayarla
-                        button.innerText = kategori.name;
-                        // Düğmeyi bir liste öğesine ekle
-                        var listItem = document.createElement("li");
-                        listItem.appendChild(button);
+            // Hepsi butonunu ekle
+            const allButton = document.createElement("button");
+            allButton.textContent = "Hepsi";
+            allButton.classList.add("category-button", "flex", "hover:bg-gray-50", "focus:outline-none", "focus:ring-2", "focus:ring-indigo-500", "focus:border-indigo-500", "w-full", "text-left", "text-gray-700", "bg-white", "rounded-md", "py-2", "px-3", "justify-between", "items-center");
+            allButton.onclick = () => filterKartlar('all');
+            const allListItem = document.createElement("li");
+            allListItem.appendChild(allButton);
+            kategorilerListesi.appendChild(allListItem);
 
-                        // Listeye ekle
-                        kategoriListesi.appendChild(listItem);
-                    });
-                })
-                .catch(error => {
-                    console.error('Hata:', error);
-                    // Hata durumunda kullanıcıya bir mesaj gösterebilirsiniz
-                });
-            function selectCategory(button) {
-                var buttons = document.querySelectorAll('.category-button');
-                buttons.forEach(function (btn) {
-                    btn.classList.remove('bg-blue-600', 'focus:ring-blue-600', 'focus:border-blue-600', 'text-white');
-                    btn.classList.add('bg-white', 'hover:bg-gray-50', 'focus:ring-2', 'focus:ring-indigo-500', 'focus:border-indigo-500', 'text-gray-700');
-                });
-                button.classList.remove('bg-white', 'hover:bg-gray-50', 'focus:ring-2', 'focus:ring-indigo-500', 'focus:border-indigo-500', 'text-gray-700');
-                button.classList.add('text-white', 'bg-blue-600', 'focus:ring-blue-600', 'focus:border-blue-600');
-            }
-
-            // Kategori seçildiğinde çağrılacak fonksiyon
-            function selectCategory(button) {
-                var buttons = document.querySelectorAll('.category-button');
-                buttons.forEach(function (btn) {
-                    btn.classList.remove('bg-blue-600', 'focus:ring-blue-600', 'focus:border-blue-600', 'text-white');
-                    btn.classList.add('bg-white', 'hover:bg-gray-50', 'focus:ring-2', 'focus:ring-indigo-500', 'focus:border-indigo-500', 'text-gray-700');
-                });
-                button.classList.remove('bg-white', 'hover:bg-gray-50', 'focus:ring-2', 'focus:ring-indigo-500', 'focus:border-indigo-500', 'text-gray-700');
-                button.classList.add('text-white', 'bg-blue-600', 'focus:ring-blue-600', 'focus:border-blue-600');
-                // Seçilen kategori adını alabilirsiniz
-                var categoryName = button.innerText;
-                console.log("Seçilen kategori: " + categoryName);
-                // Diğer işlemleri burada yapabilirsiniz
-
-            }
-            // Kategorilerden kartları listeleme işlemi
-            fetch("api/get_prompt_cards.php")
-                .then(response => response.json())
-                .then(kartlar => {
-                    // Kategorilerin id'lerini al
-                    var kategoriIds = kartlar.map(kart => kart.category_id);
-
-                    // Tekrar eden kategori id'lerini kaldır
-                    //var uniqueKategoriIds = [...new Set(kategoriIds)];
-
-                    // Her bir kategori için kartları listele
-                    kategoriIds.forEach(kategoriId => {
-                        // Kategorinin kartlarını al
-                        var kategoriKartlar = kartlar.filter(kart => kart.category_id === kategoriId);
-
-                        // Kartları listele
-                        kategoriKartlar.forEach(kart => {
-                            // Kartı oluştur
-                            var kartDiv = document.createElement("div");
-                            kartDiv.setAttribute("class", "bg-white shadow-lg rounded-lg card m-2 p-6 transform transition duration-500 ease-in-out hover:scale-105");
-
-                            // Kategori etiketi ekle
-                            var kategoriSpan = document.createElement("span");
-                            kategoriSpan.setAttribute("class", "px-2 py-0.5 text-xs bg-gray-300 text-gray-500 rounded-full badge float-right");
-                            kategoriSpan.innerText = kart.category;
-                            kartDiv.appendChild(kategoriSpan);
-
-                            // Başlık ekle
-                            var baslikP = document.createElement("p");
-                            baslikP.setAttribute("class", "font-semibold text-blue-600 text-xl mb-3 block");
-                            baslikP.innerText = kart.title;
-                            kartDiv.appendChild(baslikP);
-
-                            // İçerik ekle
-                            var icerikP = document.createElement("p");
-                            icerikP.setAttribute("class", "text-gray-600 mb-6");
-                            icerikP.innerText = kart.description;
-                            kartDiv.appendChild(icerikP);
-
-                            // Buton ekle
-                            var button = document.createElement("button");
-                            button.setAttribute("fontfamily", "Arial");
-                            button.setAttribute("type", "submit");
-                            button.setAttribute("class", "inline-flex focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 w-full justify-center rounded-lg py-2 px-4 bg-blue-600 text-sm font-semibold text-white shadow-lg");
-                            button.innerText = "Click me!";
-                            // Butona tıklandığında ilgili kartın prompt'unu gösteren bir fonksiyonu çağır
-                            button.addEventListener("click", function () {
-                                alert(kart.prompt);
-                            });
-                            kartDiv.appendChild(button);
-
-                            // Kartı sayfaya ekle
-                            document.getElementById("kartlar").appendChild(kartDiv);
-                        });
-                    });
-                })
-                .catch(error => {
-                    console.error('Hata:', error);
-                    // Hata durumunda kullanıcıya bir mesaj gösterebilirsiniz
-                });
-
-            // JavaScript code to handle logout
-            document.getElementById("logoutBtn").addEventListener("click", function (event) {
-                // Prevent the default link behavior
-                event.preventDefault();
-
-                // Remove token from localStorage
-                localStorage.removeItem('token');
-
-                // Redirect to logout.php
-                window.location.href = "../api/logout.php";
+            // Kategorileri düğmelere dönüştür
+            kategoriler.forEach(kategori => {
+                const listItem = document.createElement("li");
+                const button = document.createElement("button");
+                button.textContent = kategori.name;
+                button.classList.add("category-button", "flex", "hover:bg-gray-50", "focus:outline-none", "focus:ring-2", "focus:ring-indigo-500", "focus:border-indigo-500", "w-full", "text-left", "text-gray-700", "bg-white", "rounded-md", "py-2", "px-3", "justify-between", "items-center");
+                button.onclick = () => filterKartlar(kategori.id);
+                listItem.appendChild(button);
+                kategorilerListesi.appendChild(listItem);
             });
-        </script>
+        })
+        .catch(error => {
+            console.error('Kategoriler alınamadı:', error);
+        });
+
+    fetch("api/get_prompt_cards.php")
+        .then(response => response.json())
+        .then(kartlar => {
+            allKartlar = kartlar;
+            // Her bir kartı kategori ID'sine göre grupla
+            kartlar.forEach(kart => {
+                if (!kartlarByKategori[kart.category_id]) {
+                    kartlarByKategori[kart.category_id] = [];
+                }
+                kartlarByKategori[kart.category_id].push(kart);
+            });
+            // Tüm kartları göster
+            filterKartlar('all');
+        })
+        .catch(error => {
+            console.error('Kartlar alınamadı:', error);
+        });
+
+    // Prompt'u gösteren fonksiyon
+    function showPrompt(prompt) {
+        alert(prompt);
+    }
+</script>
 </body>
 
 </html>

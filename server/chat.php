@@ -1,3 +1,6 @@
+<?php
+require_once("api/check_session.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
