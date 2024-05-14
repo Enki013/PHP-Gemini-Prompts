@@ -1,5 +1,6 @@
 <?php
 require_once 'db_config.php';
+require_once 'check_session.php';
 $statement = $db_cnn->prepare("SELECT * FROM categories");
 $statement->execute();
 $categories = $statement->fetchAll(PDO::FETCH_ASSOC);

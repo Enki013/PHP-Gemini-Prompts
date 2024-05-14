@@ -23,12 +23,16 @@ require_once("api/check_session.php");
         crossorigin="anonymous">
     <script src="https://cdn.tailwindcss.com/3.4.1?plugins=forms,typography,aspect-ratio,line-clamp"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>src = "api/get_categories.php"</script>
-    <style>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
 
-    </style>
-    <meta charset="UTF-8">
-
+  @layer utilities {
+    .font-raleway {
+      font-family: 'Raleway', sans-serif;
+    }
+  }
+</style>
 </head>
 
 <body>
@@ -36,10 +40,10 @@ require_once("api/check_session.php");
         <nav class="w-full">
             <div class="flex w-full justify-between max-w-screen-2xl md:flex-row mt-auto mr-auto mb-auto ml-auto">
                 <div class="flex flex-row bg-white justify-between items-center mt-2 mb-2 md:m-0 hidden md:flex">
-                    <a href="#" fontfamily="Raleway"
-                        class="text-gray-600 text-center mr-6 font-medium text-base">Ana Sayfa</a>
-                    <a href="#" fontfamily="Raleway"
-                        class="text-gray-600 text-center mr-6 font-medium text-base">Özellikler</a>
+                    <a href="#"
+                        class="font-raleway text-gray-600 text-center mr-6 font-medium text-base">Ana Sayfa</a>
+                    <a href="#" 
+                        class="font-raleway text-gray-600 text-center mr-6 font-medium text-base">Özellikler</a>
                 </div>
                 <div class="bg-white flex-row flex items-center justify-center order-first md:order-none">
                     <img src="https://res.cloudinary.com/speedwares/image/upload/v1659284687/windframe-logo-main_daes7r.png"
@@ -49,7 +53,7 @@ require_once("api/check_session.php");
                 <div class="flex justify-center items-center md:justify-start hidden md:flex">
 
                     <a href="api/logout.php">
-                        <button fontfamily="Arial" class="h-9 w-24 text-gray-600 bg-white border-2 border-white flex items-center
+                        <button class="font-arial h-9 w-24 text-gray-600 bg-white border-2 border-white flex items-center
                                     justify-center text-center rounded-lg text-lg font-normal mr-6"
                             id="logoutBtn">Logout</button></a>
                 </div>
@@ -63,18 +67,18 @@ require_once("api/check_session.php");
                     </div>
                 </div>
             </div>
-            <div class="hidden md:hidden md:hidden mobile-menu">
+            <div class="hidden md:hidden mobile-menu">
                 <div>
                     <div class="flex flex-col">
-                        <a href="#" fontfamily="Raleway"
-                            class="text-gray-600 text-center mt-2 font-medium text-base">Product</a>
-                        <a href="#" fontfamily="Raleway"
-                            class="text-gray-600 text-center mt-2 font-medium text-base">Features</a>
-                        <a href="#" fontfamily="Raleway"
-                            class="text-gray-600 text-center mt-2 font-medium text-base">Pricing</a>
-                        <button fontfamily="Arial" class="h-9 w-24 text-gray-600 bg-white border-2 border-white flex items-center
+                        <a href="#" 
+                            class="font-raleway text-gray-600 text-center mt-2 font-medium text-base">Product</a>
+                        <a href="#" 
+                            class="font-raleway text-gray-600 text-center mt-2 font-medium text-base">Features</a>
+                        <a href="#" 
+                            class="font-raleway text-gray-600 text-center mt-2 font-medium text-base">Pricing</a>
+                        <button class="font-arial h-9 w-24 text-gray-600 bg-white border-2 border-white flex items-center
               justify-center text-center rounded-lg text-lg font-normal mt-2 mr-auto ml-auto">Sign in</button>
-                        <button fontfamily="Arial" class="h-9 w-24 text-white bg-blue-700 hover:bg-blue-900 hover:border-blue-900
+                        <button class="font-arial h-9 w-24 text-white bg-blue-700 hover:bg-blue-900 hover:border-blue-900
               border-2 flex items-center justify-center text-center border-blue-700 rounded-lg text-lg font-normal mt-2
               mr-auto ml-auto">Sign up</button>
                     </div>
@@ -116,18 +120,18 @@ require_once("api/check_session.php");
     </div>
     <div class="bg-white pt-4 pr-8 pb-4 pl-8">
         <nav class="w-full">
-            <div class="hidden md:hidden md:hidden mobile-menu">
+            <div class="hidden md:hidden mobile-menu">
                 <div>
                     <div class="flex flex-col">
-                        <a href="#" fontfamily="Raleway"
-                            class="text-gray-600 text-center mt-2 font-medium text-base">Product</a>
-                        <a href="#" fontfamily="Raleway"
-                            class="text-gray-600 text-center mt-2 font-medium text-base">Features</a>
-                        <a href="#" fontfamily="Raleway"
-                            class="text-gray-600 text-center mt-2 font-medium text-base">Pricing</a>
-                        <button fontfamily="Arial" class="h-9 w-24 text-gray-600 bg-white border-2 border-white flex items-center
+                        <a href="#" 
+                            class="font-raleway text-gray-600 text-center mt-2 font-medium text-base">Product</a>
+                        <a href="#" 
+                            class="font-raleway text-gray-600 text-center mt-2 font-medium text-base">Features</a>
+                        <a href="#" 
+                            class="font-raleway text-gray-600 text-center mt-2 font-medium text-base">Pricing</a>
+                        <button class="font-arial h-9 w-24 text-gray-600 bg-white border-2 border-white flex items-center
               justify-center text-center rounded-lg text-lg font-normal mt-2 mr-auto ml-auto">Sign in</button>
-                        <button fontfamily="Arial" class="h-9 w-24 text-white bg-blue-700 hover:bg-blue-900 hover:border-blue-900
+                        <button class=" font-arial h-9 w-24 text-white bg-blue-700 hover:bg-blue-900 hover:border-blue-900
               border-2 flex items-center justify-center text-center border-blue-700 rounded-lg text-lg font-normal mt-2
               mr-auto ml-auto">Sign up</button>
                     </div>
@@ -135,70 +139,75 @@ require_once("api/check_session.php");
             </div>
         </nav>
     </div>
-    <div class="flex">
-        <div class="w-1/5 bg-gray-100 rounded-lg p-4 max-w-xs ">
-            <div class="pb-2 mb-4 border-b border-gray-200">
+    <div class="flex items-start">
+        <div class="w-1/5 bg-gray-100 rounded-lg p-4 max-w-xs">
+            <div class="mt-4">
+                <input type="text" id="searchInput" oninput="searchKartlar()" placeholder="Search..."
+                    class="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md">
+            </div>
+
+            <div class="mt-6 pb-2 mb-4 border-b border-gray-200">
                 <p class="text-lg font-semibold text-gray-700">Filter By Category</p>
             </div>
-            
+
             <ul class="space-y-2" id="kategoriler">
-
-                <!-- kategori itemleri -->
-
+                <!-- Kategori itemleri -->
             </ul>
-                    <div class="pb-2 mb-4 border-b border-gray-200">
-    <p class="text-lg font-semibold text-gray-700">Sort By</p>
-    <select id="sortBySelect" onchange="sortKartlar()">
-        <option value="title">Title</option>
-        <option value="category">Category</option>
-    </select>
-</div>
-            <div class="mt-4">
-    <input type="text" id="searchInput" oninput="searchKartlar()" placeholder="Search..." class="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md">
-</div>
         </div>
 
         <div class="w-4/5 ml-auto">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4 " id="kartlar">
-                <!-- kart itemleri -->
+            <div class="flex justify-end mb-4">
+                <div class="bg-gray-100 p-4 rounded-lg inline-block w-64">
+                    <p class="text-lg font-semibold text-gray-700">Sort By</p>
+                    <select id="sortBySelect" onchange="sortKartlar()"
+                        class="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md">
+                        <option value="title">Title</option>
+                        <option value="category">Category</option>
+                    </select>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4" id="kartlar">
+                <!-- Kart itemleri -->
             </div>
         </div>
- <script>
+    </div>
+
+    <script>
         // Kategorilere göre kartları filtrelemek için bir obje oluştur
         const kartlarByKategori = {};
         // Tüm kartlar
         let allKartlar = [];
 
         // Kategorilere göre kartları filtreleme fonksiyonu
-function filterKartlar(kategoriId, kartlar) {
-    kartlar = kartlar || allKartlar; // Eğer kartlar parametresi belirtilmemişse, tüm kartları kullan
-    // Kartları temizle
-    document.getElementById("kartlar").innerHTML = "";
-    // Her bir kart için HTML oluştur
-    kartlar.forEach(kart => {
-        if (kategoriId === 'all' || kart.category_id === kategoriId) {
-            const kartHTML = `
-                <div class="kategori-${kart.category_id} bg-white shadow-lg rounded-lg card m-2 p-6 transform transition duration-500 ease-in-out hover:scale-105">
-                    <span class="px-2 py-0.5 text-xs bg-gray-300 text-gray-500 rounded-full badge float-right">${kategoriAdiById[kart.category_id]}</span>
-                    <p class="font-semibold text-blue-600 text-xl mb-3 block">${kart.title}</p>
-                    <p class="text-gray-600 mb-6">${kart.description}</p>
-                    <button type="button" class="inline-flex focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 w-full justify-center rounded-lg py-2 px-4 bg-blue-600 text-sm font-semibold text-white shadow-lg" onclick="showPrompt('${kart.prompt}')">Click me!</button>
-                </div>
-            `;
-            // Kartı sayfaya ekle
-            document.getElementById("kartlar").innerHTML += kartHTML;
+        function filterKartlar(kategoriId, kartlar) {
+            kartlar = kartlar || allKartlar; // Eğer kartlar parametresi belirtilmemişse, tüm kartları kullan
+            // Kartları temizle
+            document.getElementById("kartlar").innerHTML = "";
+            // Her bir kart için HTML oluştur
+            kartlar.forEach(kart => {
+                if (kategoriId === 'all' || kart.category_id === kategoriId) {
+                    const kartHTML = `
+                        <div class="kategori-${kart.category_id} bg-white shadow-lg rounded-lg card m-2 p-6 transform transition duration-500 ease-in-out hover:scale-105">
+                            <span class="px-2 py-0.5 text-xs bg-gray-300 text-gray-500 rounded-full badge float-right">${kategoriAdiById[kart.category_id]}</span>
+                            <p class="font-semibold text-blue-600 text-xl mb-3 block">${kart.title}</p>
+                            <p class="text-gray-600 mb-6">${kart.description}</p>
+                            <button type="button" class="inline-flex focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 w-full justify-center rounded-lg py-2 px-4 bg-blue-600 text-sm font-semibold text-white shadow-lg" onclick="showPrompt('${kart.prompt}')">Promptu kullan</button>
+                        </div>
+                    `;
+                    // Kartı sayfaya ekle
+                    document.getElementById("kartlar").innerHTML += kartHTML;
+                }
+            });
         }
-    });
-}
 
-     // Kartları arama fonksiyonu
-function searchKartlar() {
-    const searchInput = document.getElementById("searchInput").value.toLowerCase();
-    const filteredKartlar = allKartlar.filter(kart => {
-        return kart.title.toLowerCase().includes(searchInput);
-    });
-    filterKartlar('all', filteredKartlar); // Tüm kartları göster ve arama sonuçlarını filtrele
-}
+        // Kartları arama fonksiyonu
+        function searchKartlar() {
+            const searchInput = document.getElementById("searchInput").value.toLowerCase();
+            const filteredKartlar = allKartlar.filter(kart => {
+                return kart.title.toLowerCase().includes(searchInput);
+            });
+            filterKartlar('all', filteredKartlar); // Tüm kartları göster ve arama sonuçlarını filtrele
+        }
 
         const kategoriAdiById = {};
 
@@ -257,18 +266,27 @@ function searchKartlar() {
         function showPrompt(prompt) {
             alert(prompt);
         }
+
         // Kartları sıralama fonksiyonu
-function sortKartlar() {
-    const sortBy = document.getElementById("sortBySelect").value;
-    let sortedKartlar = [...allKartlar]; // Tüm kartların bir kopyasını al
-    if (sortBy === 'title') {
-        sortedKartlar.sort((a, b) => a.title.localeCompare(b.title)); // Başlığa göre sırala
-    } else if (sortBy === 'category') {
-        sortedKartlar.sort((a, b) => a.category_id - b.category_id); // Kategoriye göre sırala
-    }
-    filterKartlar('all', sortedKartlar); // Filtrelenmiş ve sıralanmış kartları göster
-}
+        function sortKartlar() {
+            const sortBy = document.getElementById("sortBySelect").value;
+            let sortedKartlar = [...allKartlar]; // Tüm kartların bir kopyasını al
+            if (sortBy === 'title') {
+                sortedKartlar.sort((a, b) => a.title.localeCompare(b.title)); // Başlığa göre sırala
+            } else if (sortBy === 'category') {
+                sortedKartlar.sort((a, b) => a.category_id - b.category_id); // Kategoriye göre sırala
+            }
+            filterKartlar('all', sortedKartlar); // Filtrelenmiş ve sıralanmış kartları göster
+        }
+        //mobile menu
+
+        $(document).ready(function() {
+            $(".mobile-menu-button").click(function() {
+                $(".mobile-menu").toggleClass("hidden");
+            });
+        });
     </script>
 </body>
 
+</html>
 </html>

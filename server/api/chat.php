@@ -1,5 +1,6 @@
 <?php
 require_once 'db_config.php';
+require_once 'check_session.php';
 
 $postData = json_decode(file_get_contents('php://input'), true);
 
