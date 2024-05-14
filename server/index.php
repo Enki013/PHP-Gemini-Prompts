@@ -146,10 +146,18 @@ require_once("api/check_session.php");
                 <!-- kategori itemleri -->
 
             </ul>
+                    <div class="pb-2 mb-4 border-b border-gray-200">
+    <p class="text-lg font-semibold text-gray-700">Sort By</p>
+    <select id="sortBySelect" onchange="sortKartlar()">
+        <option value="title">Title</option>
+        <option value="category">Category</option>
+    </select>
+</div>
             <div class="mt-4">
     <input type="text" id="searchInput" oninput="searchKartlar()" placeholder="Search..." class="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md">
 </div>
         </div>
+
         <div class="w-4/5 ml-auto">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4 " id="kartlar">
                 <!-- kart itemleri -->
@@ -249,6 +257,17 @@ function searchKartlar() {
         function showPrompt(prompt) {
             alert(prompt);
         }
+        // Kartları sıralama fonksiyonu
+function sortKartlar() {
+    const sortBy = document.getElementById("sortBySelect").value;
+    let sortedKartlar = [...allKartlar]; // Tüm kartların bir kopyasını al
+    if (sortBy === 'title') {
+        sortedKartlar.sort((a, b) => a.title.localeCompare(b.title)); // Başlığa göre sırala
+    } else if (sortBy === 'category') {
+        sortedKartlar.sort((a, b) => a.category_id - b.category_id); // Kategoriye göre sırala
+    }
+    filterKartlar('all', sortedKartlar); // Filtrelenmiş ve sıralanmış kartları göster
+}
     </script>
 </body>
 
