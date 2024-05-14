@@ -140,31 +140,35 @@ require_once("api/check_session.php");
             <div class="pb-2 mb-4 border-b border-gray-200">
                 <p class="text-lg font-semibold text-gray-700">Filter By Category</p>
             </div>
+            
             <ul class="space-y-2" id="kategoriler">
 
                 <!-- kategori itemleri -->
 
             </ul>
+            <div class="mt-4">
+    <input type="text" id="searchInput" oninput="searchKartlar()" placeholder="Search..." class="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md">
+</div>
         </div>
         <div class="w-4/5 ml-auto">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4 " id="kartlar">
                 <!-- kart itemleri -->
             </div>
         </div>
-<script>
-    // Kategorilere göre kartları filtrelemek için bir obje oluştur
-    const kartlarByKategori = {};
+ <script>
+        // Kategorilere göre kartları filtrelemek için bir obje oluştur
+        const kartlarByKategori = {};
+        // Tüm kartlar
+        let allKartlar = [];
 
-    // Tüm kartlar
-    let allKartlar = [];
-
-    // Kategorilere göre kartları filtreleme fonksiyonu
-    function filterKartlar(kategoriId) {
-        const kartlar = kategoriId === 'all' ? allKartlar : kartlarByKategori[kategoriId];
-        // Kartları temizle
-        document.getElementById("kartlar").innerHTML = "";
-        // Her bir kart için HTML oluştur
-        kartlar.forEach(kart => {
+        // Kategorilere göre kartları filtreleme fonksiyonu
+function filterKartlar(kategoriId, kartlar) {
+    kartlar = kartlar || allKartlar; // Eğer kartlar parametresi belirtilmemişse, tüm kartları kullan
+    // Kartları temizle
+    document.getElementById("kartlar").innerHTML = "";
+    // Her bir kart için HTML oluştur
+    kartlar.forEach(kart => {
+        if (kategoriId === 'all' || kart.category_id === kategoriId) {
             const kartHTML = `
                 <div class="kategori-${kart.category_id} bg-white shadow-lg rounded-lg card m-2 p-6 transform transition duration-500 ease-in-out hover:scale-105">
                     <span class="px-2 py-0.5 text-xs bg-gray-300 text-gray-500 rounded-full badge float-right">${kategoriAdiById[kart.category_id]}</span>
@@ -175,67 +179,77 @@ require_once("api/check_session.php");
             `;
             // Kartı sayfaya ekle
             document.getElementById("kartlar").innerHTML += kartHTML;
-        });
-    }
+        }
+    });
+}
 
-    const kategoriAdiById = {};
+     // Kartları arama fonksiyonu
+function searchKartlar() {
+    const searchInput = document.getElementById("searchInput").value.toLowerCase();
+    const filteredKartlar = allKartlar.filter(kart => {
+        return kart.title.toLowerCase().includes(searchInput);
+    });
+    filterKartlar('all', filteredKartlar); // Tüm kartları göster ve arama sonuçlarını filtrele
+}
 
-    fetch("api/get_categories.php")
-        .then(response => response.json())
-        .then(kategoriler => {
-            kategoriler.forEach(kategori => {
-                kategoriAdiById[kategori.id] = kategori.name;
+        const kategoriAdiById = {};
+
+        fetch("api/get_categories.php")
+            .then(response => response.json())
+            .then(kategoriler => {
+                kategoriler.forEach(kategori => {
+                    kategoriAdiById[kategori.id] = kategori.name;
+                });
+
+                const kategorilerListesi = document.getElementById("kategoriler");
+
+                // "All" butonunu oluştur
+                const allButton = document.createElement("button");
+                allButton.textContent = "All";
+                allButton.classList.add("category-button", "flex", "hover:bg-gray-50", "focus:outline-none", "focus:ring-2", "focus:ring-indigo-500", "focus:border-indigo-500", "w-full", "text-left", "text-gray-700", "bg-white", "rounded-md", "py-2", "px-3", "justify-between", "items-center");
+                allButton.onclick = () => filterKartlar('all');
+                const allListItem = document.createElement("li");
+                allListItem.appendChild(allButton);
+                kategorilerListesi.appendChild(allListItem);
+
+                // Kategorileri düğmelere dönüştür
+                kategoriler.forEach(kategori => {
+                    const listItem = document.createElement("li");
+                    const button = document.createElement("button");
+                    button.textContent = kategori.name;
+                    button.classList.add("category-button", "flex", "hover:bg-gray-50", "focus:outline-none", "focus:ring-2", "focus:ring-indigo-500", "focus:border-indigo-500", "w-full", "text-left", "text-gray-700", "bg-white", "rounded-md", "py-2", "px-3", "justify-between", "items-center");
+                    button.onclick = () => filterKartlar(kategori.id);
+                    listItem.appendChild(button);
+                    kategorilerListesi.appendChild(listItem);
+                });
+            })
+            .catch(error => {
+                console.error('Kategoriler alınamadı:', error);
             });
 
-            const kategorilerListesi = document.getElementById("kategoriler");
-
-            // Hepsi butonunu ekle
-            const allButton = document.createElement("button");
-            allButton.textContent = "Hepsi";
-            allButton.classList.add("category-button", "flex", "hover:bg-gray-50", "focus:outline-none", "focus:ring-2", "focus:ring-indigo-500", "focus:border-indigo-500", "w-full", "text-left", "text-gray-700", "bg-white", "rounded-md", "py-2", "px-3", "justify-between", "items-center");
-            allButton.onclick = () => filterKartlar('all');
-            const allListItem = document.createElement("li");
-            allListItem.appendChild(allButton);
-            kategorilerListesi.appendChild(allListItem);
-
-            // Kategorileri düğmelere dönüştür
-            kategoriler.forEach(kategori => {
-                const listItem = document.createElement("li");
-                const button = document.createElement("button");
-                button.textContent = kategori.name;
-                button.classList.add("category-button", "flex", "hover:bg-gray-50", "focus:outline-none", "focus:ring-2", "focus:ring-indigo-500", "focus:border-indigo-500", "w-full", "text-left", "text-gray-700", "bg-white", "rounded-md", "py-2", "px-3", "justify-between", "items-center");
-                button.onclick = () => filterKartlar(kategori.id);
-                listItem.appendChild(button);
-                kategorilerListesi.appendChild(listItem);
+        fetch("api/get_prompt_cards.php")
+            .then(response => response.json())
+            .then(kartlar => {
+                allKartlar = kartlar;
+                // Her bir kartı kategori ID'sine göre grupla
+                kartlar.forEach(kart => {
+                    if (!kartlarByKategori[kart.category_id]) {
+                        kartlarByKategori[kart.category_id] = [];
+                    }
+                    kartlarByKategori[kart.category_id].push(kart);
+                });
+                // Tüm kartları göster
+                filterKartlar('all');
+            })
+            .catch(error => {
+                console.error('Kartlar alınamadı:', error);
             });
-        })
-        .catch(error => {
-            console.error('Kategoriler alınamadı:', error);
-        });
 
-    fetch("api/get_prompt_cards.php")
-        .then(response => response.json())
-        .then(kartlar => {
-            allKartlar = kartlar;
-            // Her bir kartı kategori ID'sine göre grupla
-            kartlar.forEach(kart => {
-                if (!kartlarByKategori[kart.category_id]) {
-                    kartlarByKategori[kart.category_id] = [];
-                }
-                kartlarByKategori[kart.category_id].push(kart);
-            });
-            // Tüm kartları göster
-            filterKartlar('all');
-        })
-        .catch(error => {
-            console.error('Kartlar alınamadı:', error);
-        });
-
-    // Prompt'u gösteren fonksiyon
-    function showPrompt(prompt) {
-        alert(prompt);
-    }
-</script>
+        // Prompt'u gösteren fonksiyon
+        function showPrompt(prompt) {
+            alert(prompt);
+        }
+    </script>
 </body>
 
 </html>
