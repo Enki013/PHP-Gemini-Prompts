@@ -70,7 +70,7 @@ require_once 'api/check_session.php';
                     // Display response
                     var responseData = JSON.parse(xhr.responseText);
                     removeTypingAnimation();
-                    displayMessage('AI', responseData.response);
+                    displayMessage('AI', JSON.parse(JSON.stringify(responseData.response)));
                     // Change send button back
                     sendButton.innerHTML = `Send`;
                     isWaitingForResponse = false; // Response received
@@ -161,7 +161,7 @@ require_once 'api/check_session.php';
                 if (xhr.status === 200) {
                     var responseData = JSON.parse(xhr.responseText);
                     removeTypingAnimation();
-                    displayMessage('AI', responseData.response);
+                    displayMessage('AI', JSON.parse(JSON.stringify(responseData.response)));
                     isWaitingForResponse = false;
                 } else {
                     console.error('Request failed. Error:', xhr.statusText);
@@ -199,4 +199,3 @@ require_once 'api/check_session.php';
 </body>
 
 </html>
-
