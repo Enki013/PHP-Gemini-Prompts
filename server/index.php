@@ -7,168 +7,143 @@ require_once("api/check_session.php");
 
 <head>
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&amp;display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&amp;display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Nunito+Sans&amp;family=Raleway:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-        rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
-        crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/brands.min.css"
-        integrity="sha512-apX8rFN/KxJW8rniQbkvzrshQ3KvyEH+4szT3Sno5svdr6E/CP0QE862yEeLBMUnCqLko8QaugGkzvWS7uNfFQ=="
-        crossorigin="anonymous">
-    <script src="https://cdn.tailwindcss.com/3.4.1?plugins=forms,typography,aspect-ratio,line-clamp"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta name="description" content="Your site description here">
+    <meta name="keywords" content="keyword1, keyword2, keyword3">
+    <meta property="og:title" content="Your Site Title">
+    <meta property="og:description" content="Your site description here">
+    <meta property="og:image" content="URL to image">
+    <meta property="og:url" content="Your site URL">
+    
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <!-- tailwind.css -->
+    <link rel="stylesheet" href="src/output.css">
 
-  @layer utilities {
-    .font-raleway {
-      font-family: 'Raleway', sans-serif;
-    }
-  }
-</style>
+    <style>
+     
+        .font-raleway {
+            font-family: 'Raleway', sans-serif;
+        }
+
+
+    </style>
 </head>
 
-<body>
-    <div class="bg-white pt-4 pr-8 pb-4 pl-8">
+<body class="font-raleway dark:bg-gray-900 dark:text-white">
+    
+    <div class="bg-white dark:bg-gray-800 pt-4 pr-8 pb-4 pl-8">
         <nav class="w-full">
             <div class="flex w-full justify-between max-w-screen-2xl md:flex-row mt-auto mr-auto mb-auto ml-auto">
-                <div class="flex flex-row bg-white justify-between items-center mt-2 mb-2 md:m-0 hidden md:flex">
-                    <a href="#"
-                        class="font-raleway text-gray-600 text-center mr-6 font-medium text-base">Ana Sayfa</a>
-                    <a href="#" 
-                        class="font-raleway text-gray-600 text-center mr-6 font-medium text-base">Özellikler</a>
+                <div class="flex flex-row bg-white dark:bg-gray-800 justify-between items-center mt-2 mb-2 md:m-0 hidden md:flex">
+                    <a href="#" class="text-gray-600 dark:text-gray-300 text-center mr-6 font-medium text-base">Ana Sayfa</a>
+                    <a href="#" class="text-gray-600 dark:text-gray-300 text-center mr-6 font-medium text-base">Özellikler</a>
                 </div>
-                <div class="bg-white flex-row flex items-center justify-center order-first md:order-none">
+                <div class="bg-white dark:bg-gray-800 flex-row flex items-center justify-center order-first md:order-none">
                     <img src="https://res.cloudinary.com/speedwares/image/upload/v1659284687/windframe-logo-main_daes7r.png"
-                        class="w-12 md:w-16">
+                        alt="Site Logo" class="w-12 md:w-16">
                 </div>
-
+                    
                 <div class="flex justify-center items-center md:justify-start hidden md:flex">
-
+                    <img src="./img/mon.svg" alt="Mon Icon" class="mon cursor-pointer w-6 h-6 mr-2">
+                    <img src="./img/sun.svg" alt="Sun Icon" class="sun cursor-pointer w-6 h-6 mr-2">
                     <a href="api/logout.php">
-                        <button class="font-arial h-9 w-24 text-gray-600 bg-white border-2 border-white flex items-center
-                                    justify-center text-center rounded-lg text-lg font-normal mr-6"
+                        <button aria-label="Logout" class="h-9 w-24 text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-800 border-2 border-white dark:border-gray-800 flex items-center
+                                    justify-center text-center rounded-lg text-lg font-normal mr-2"
                             id="logoutBtn">Logout</button></a>
                 </div>
                 <div class="md:hidden flex items-center">
                     <div class="outline-none mobile-menu-button">
-                        <svg id="Windframe_U0rJiH4AqgA" fill="none" strokelinecap="round" strokewidth="2"
+                        <svg fill="none" strokelinecap="round" strokewidth="2"
                             viewBox="0 0 24 24" stroke="currentColor"
-                            class="w-6 h-6 text-gray-500 hover:text-green-500">
-                            <path id="Windframe_B88cbZI7jj9" d="M4 6h16M4 12h16M4 18h16"></path>
+                            class="w-6 h-6 text-gray-500 dark:text-gray-300 hover:text-green-500">
+                            <path d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
                     </div>
                 </div>
+        
             </div>
             <div class="hidden md:hidden mobile-menu">
-                <div>
-                    <div class="flex flex-col">
-                        <a href="#" 
-                            class="font-raleway text-gray-600 text-center mt-2 font-medium text-base">Product</a>
-                        <a href="#" 
-                            class="font-raleway text-gray-600 text-center mt-2 font-medium text-base">Features</a>
-                        <a href="#" 
-                            class="font-raleway text-gray-600 text-center mt-2 font-medium text-base">Pricing</a>
-                        <button class="font-arial h-9 w-24 text-gray-600 bg-white border-2 border-white flex items-center
+                <div class="flex flex-col">
+                    <a href="#" class="text-gray-600 dark:text-gray-300 text-center mt-2 font-medium text-base">Product</a>
+                    <a href="#" class="text-gray-600 dark:text-gray-300 text-center mt-2 font-medium text-base">Features</a>
+                    <a href="#" class="text-gray-600 dark:text-gray-300 text-center mt-2 font-medium text-base">Pricing</a>
+                    <button class="h-9 w-24 text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-800 border-2 border-white dark:border-gray-800 flex items-center
               justify-center text-center rounded-lg text-lg font-normal mt-2 mr-auto ml-auto">Sign in</button>
-                        <button class="font-arial h-9 w-24 text-white bg-blue-700 hover:bg-blue-900 hover:border-blue-900
+                    <button class="h-9 w-24 text-white bg-blue-700 hover:bg-blue-900 hover:border-blue-900
               border-2 flex items-center justify-center text-center border-blue-700 rounded-lg text-lg font-normal mt-2
               mr-auto ml-auto">Sign up</button>
-                    </div>
                 </div>
             </div>
         </nav>
     </div>
-    <div class="bg-white mr-auto ml-auto pt-16 pr-4 pb-16 pl-4 sm:max-w-xl md:max-w-full md:px-24 lg:px-8 lg:py-20">
-        <div rounded="md" class="shadow-xl pt-8 pr-8 pb-8 pl-8 sm:p-16">
+    <div class="bg-white dark:bg-gray-800 mr-auto ml-auto pt-16 pr-4 pb-16 pl-4 sm:max-w-xl md:max-w-full md:px-24 lg:px-8 lg:py-20">
+        <div class="rounded-md shadow-xl pt-8 pr-8 pb-8 pl-8 sm:p-16">
             <div class="flex flex-col lg:flex-row">
                 <div class="lg:mb-0 lg:w-1/2 lg:pr-5 mb-6">
                     <div>
-                        <p
-                            class="block text-3xl font-bold tracking-tight text-gray-900 leading-6 font-sans sm:text-4xl">
-                            Improve your
+                        <p class="block text-3xl font-bold tracking-tight text-gray-900 dark:text-white leading-6 sm:text-4xl">Improve your
                             day</p>
-                        <p
-                            class="inline text-3xl font-bold tracking-tight text-gray-900 font-sans sm:text-4xl sm:leading-none">
-                            to the
+                        <p class="inline text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl sm:leading-none">to the
                             MAX with</p>
-                        <p
-                            class="inline text-blue-700 text-3xl font-bold tracking-tight font-sans sm:text-4xl sm:leading-none">
+                        <p class="inline text-blue-700 dark:text-blue-400 text-3xl font-bold tracking-tight sm:text-4xl sm:leading-none">
                             Gemini
                             Prompts</p>
                     </div>
                 </div>
                 <div class="lg:w-1/2">
-                    <p class="mb-4 text-base text-left text-gray-700">Sizin için oluşturulmuş yüzlerce prompt ile direkt sohbet başlatabilirsiniz, aklınıza gelen herşeyi bulmanız mümkün.</p>
-                    <a href="#kartlar" class="w-3/12 text-blue-700 text-center flex font-semibold items-center transition-colors duration-200
-            hover:text-blue-900">Hemen keşfet</a>
+                    <p class="mb-4 text-base text-left text-gray-700 dark:text-gray-300">"Hayal gücünüzü harekete geçirecek yüzlerce benzersiz prompt ile sohbete dalın, her konuda ilham verici fikirler ve keşfedilmemiş dünyalar sizi bekliyor."
+
+</p>
+                    <a href="#kartlar" class="w-3/12 text-blue-700 dark:text-blue-400 text-center flex font-semibold items-center transition-colors duration-200
+            hover:text-blue-900 dark:hover:text-blue-600">Hemen keşfet</a>
                 </div>
+                 
             </div>
         </div>
     </div>
 
-    </div>
-    </div>
-
-    </div>
-    <div class="bg-white pt-4 pr-8 pb-4 pl-8">
-        <nav class="w-full">
-            <div class="hidden md:hidden mobile-menu">
-                <div>
-                    <div class="flex flex-col">
-                        <a href="#" 
-                            class="font-raleway text-gray-600 text-center mt-2 font-medium text-base">Product</a>
-                        <a href="#" 
-                            class="font-raleway text-gray-600 text-center mt-2 font-medium text-base">Features</a>
-                        <a href="#" 
-                            class="font-raleway text-gray-600 text-center mt-2 font-medium text-base">Pricing</a>
-                        <button class="font-arial h-9 w-24 text-gray-600 bg-white border-2 border-white flex items-center
-              justify-center text-center rounded-lg text-lg font-normal mt-2 mr-auto ml-auto">Sign in</button>
-                        <button class=" font-arial h-9 w-24 text-white bg-blue-700 hover:bg-blue-900 hover:border-blue-900
-              border-2 flex items-center justify-center text-center border-blue-700 rounded-lg text-lg font-normal mt-2
-              mr-auto ml-auto">Sign up</button>
+    <div class="bg-white dark:bg-gray-800 pt-4 pr-8 pb-4 pl-8">
+        <div class="flex items-start">
+            <div class="w-1/5 bg-gray-100 dark:bg-gray-700 rounded-lg p-4 max-w-xs">
+                <div class="mt-4 relative">
+                    <input type="text" id="searchInput" oninput="searchKartlar()" placeholder="Search..."
+                        class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md dark:bg-gray-800 dark:text-gray-300">
+                    <div class="absolute mt-1 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-lg z-10">
+                        <ul id="dropdownResults" class="max-h-60 overflow-auto">
+                            <!-- Dropdown items will be dynamically inserted here -->
+                        </ul>
                     </div>
                 </div>
-            </div>
-        </nav>
-    </div>
-    <div class="flex items-start">
-        <div class="w-1/5 bg-gray-100 rounded-lg p-4 max-w-xs">
-            <div class="mt-4">
-                <input type="text" id="searchInput" oninput="searchKartlar()" placeholder="Search..."
-                    class="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md">
-            </div>
-
-            <div class="mt-6 pb-2 mb-4 border-b border-gray-200">
-                <p class="text-lg font-semibold text-gray-700">Filter By Category</p>
-            </div>
-
-            <ul class="space-y-2" id="kategoriler">
-                <!-- Kategori itemleri -->
-            </ul>
-        </div>
-
-        <div class="w-4/5 ml-auto">
-            <div class="flex justify-end mb-4">
-                <div class="bg-gray-100 p-4 rounded-lg inline-block w-64">
-                    <p class="text-lg font-semibold text-gray-700">Sort By</p>
-                    <select id="sortBySelect" onchange="sortKartlar()"
-                        class="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md">
-                        <option value="title">Title</option>
-                        <option value="category">Category</option>
-                    </select>
+                <!-- <div class="flex items-center">
+                    <img src="./mon.svg" alt="Mon Icon" class="mon cursor-pointer">
+                    <img src="./sun.svg" alt="Sun Icon" class="sun cursor-pointer">
+                </div> -->
+                <div class="mt-6 pb-2 mb-4 border-b border-gray-200 dark:border-gray-600">
+                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-300">Filter By Category</p>
                 </div>
+                <ul class="space-y-2" id="kategoriler">
+                    <!-- Kategori itemleri -->
+                </ul>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4" id="kartlar">
-                <!-- Kart itemleri -->
-            </div>
+            <div class="w-4/5 ml-auto">
+ 
+                <div class="flex justify-end mb-4">
+
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg inline-block w-64">
+                        <p class="text-lg font-semibold text-gray-700 dark:text-gray-300">Sort By</p>
+                        <select id="sortBySelect" onchange="sortKartlar()"
+                            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md dark:bg-gray-800 dark:text-gray-300">
+                            <option value="title" class="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-300">Title</option>
+                            <option value="category" class="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-300">Category</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4" id="kartlar">
+  
+    <!-- Kart itemleri -->
+</div>
+
         </div>
     </div>
 
@@ -186,19 +161,48 @@ require_once("api/check_session.php");
             // Her bir kart için HTML oluştur
             kartlar.forEach(kart => {
                 if (kategoriId === 'all' || kart.category_id === kategoriId) {
-                    const kartHTML = `
-                        <div class="kategori-${kart.category_id} bg-white shadow-lg rounded-lg card m-2 p-6 transform transition duration-500 ease-in-out hover:scale-105">
-                            <span class="px-2 py-0.5 text-xs bg-gray-300 text-gray-500 rounded-full badge float-right">${kategoriAdiById[kart.category_id]}</span>
-                            <p class="font-semibold text-blue-600 text-xl mb-3 block">${kart.title}</p>
-                            <p class="text-gray-600 mb-6">${kart.description}</p>
-                            <button type="button" class="inline-flex focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 w-full justify-center rounded-lg py-2 px-4 bg-blue-600 text-sm font-semibold text-white shadow-lg" onclick="showPrompt('${kart.prompt}')">Promptu kullan</button>
-                        </div>
-                    `;
+                    const kartHTML = `<div
+    class="bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-300 rounded-lg border border-gray-200 dark:border-gray-600 divide-gray-200 dark:divide-gray-600 flex max-w-sm flex-col p-0 transition-transform duration-300 hover:scale-105 hover:bg-gray-50 dark:hover:bg-gray-700 hover:shadow-lg">
+
+        <div class="bg-gray-100 dark:bg-gray-700 border-b dark:border-gray-600 rounded-t-lg py-3 px-4 md:py-4 md:px-5 flex gap-2 items-center flex-wrap">
+        <div
+            class="border-gray-200 dark:border-gray-600 divide-gray-200 dark:divide-gray-600 font-medium inline-flex items-center justify-center px-2.5 py-0.5 text-sm bg-purple-100 dark:bg-purple-800 text-purple-800 dark:text-purple-200 rounded-full">
+            ${kategoriAdiById[kart.category_id]}
+        </div>
+    </div>
+    <div class="p-4 flex flex-col justify-between h-full">
+        <h5 class="text-xl font-bold text-gray-900 dark:text-white w-full">${kart.title}</h5>
+        <p class="my-4 font-normal text-gray-700 dark:text-gray-300 leading-tight ">${kart.description.length > 70 ? kart.description.substring(0, 70) + '...' : kart.description}</p>
+        <div class="flex items-end justify-between">
+            <button class="hover:underline text-primary-600 dark:text-primary-400 w-fit flex gap-2 items-center mt-4"
+                onclick="showPrompt('${kart.prompt}')">
+                Run Prompt
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide-icon lucide lucide-chevron-right ">
+                    <path d="m9 18 6-6-6-6"></path>
+                </svg>
+            </button>
+            <div class="flex items-center gap-2">
+                <button id="copy" class="hover:yellow-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-star">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg>
+                </button>
+                <div></div>
+            </div>
+        </div>
+    </div>
+</div>`;
                     // Kartı sayfaya ekle
                     document.getElementById("kartlar").innerHTML += kartHTML;
                 }
             });
         }
+ 
 
         // Kartları arama fonksiyonu
         function searchKartlar() {
@@ -223,7 +227,7 @@ require_once("api/check_session.php");
                 // "All" butonunu oluştur
                 const allButton = document.createElement("button");
                 allButton.textContent = "All";
-                allButton.classList.add("category-button", "flex", "hover:bg-gray-50", "focus:outline-none", "focus:ring-2", "focus:ring-indigo-500", "focus:border-indigo-500", "w-full", "text-left", "text-gray-700", "bg-white", "rounded-md", "py-2", "px-3", "justify-between", "items-center");
+                allButton.classList.add("category-button", "flex", "hover:bg-gray-50", "dark:hover:bg-gray-600", "focus:outline-none", "focus:ring-2", "focus:ring-indigo-500", "focus:border-indigo-500", "w-full", "text-left", "text-gray-700", "dark:text-gray-300", "bg-white", "dark:bg-gray-800", "rounded-md", "py-2", "px-3", "justify-between", "items-center");
                 allButton.onclick = () => filterKartlar('all');
                 const allListItem = document.createElement("li");
                 allListItem.appendChild(allButton);
@@ -234,7 +238,7 @@ require_once("api/check_session.php");
                     const listItem = document.createElement("li");
                     const button = document.createElement("button");
                     button.textContent = kategori.name;
-                    button.classList.add("category-button", "flex", "hover:bg-gray-50", "focus:outline-none", "focus:ring-2", "focus:ring-indigo-500", "focus:border-indigo-500", "w-full", "text-left", "text-gray-700", "bg-white", "rounded-md", "py-2", "px-3", "justify-between", "items-center");
+                    button.classList.add("category-button", "flex", "hover:bg-gray-50", "dark:hover:bg-gray-600", "focus:outline-none", "focus:ring-2", "focus:ring-indigo-500", "focus:border-indigo-500", "w-full", "text-left", "text-gray-700", "dark:text-gray-300", "bg-white", "dark:bg-gray-800", "rounded-md", "py-2", "px-3", "justify-between", "items-center");
                     button.onclick = () => filterKartlar(kategori.id);
                     listItem.appendChild(button);
                     kategorilerListesi.appendChild(listItem);
@@ -285,8 +289,9 @@ require_once("api/check_session.php");
                 $(".mobile-menu").toggleClass("hidden");
             });
         });
+        
     </script>
+    <script src="src/app.js"></script>
 </body>
+</html>
 
-</html>
-</html>
