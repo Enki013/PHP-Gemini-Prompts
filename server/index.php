@@ -175,7 +175,7 @@ require_once("api/check_session.php");
         <p class="my-4 font-normal text-gray-700 dark:text-gray-300 leading-tight ">${kart.description.length > 70 ? kart.description.substring(0, 70) + '...' : kart.description}</p>
         <div class="flex items-end justify-between">
             <button class="hover:underline text-primary-600 dark:text-primary-400 w-fit flex gap-2 items-center mt-4"
-                onclick="showPrompt('${kart.prompt}')">
+                onclick="showPrompt('${kart.prompt}', '${kart.id}')">
                 Run Prompt
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -267,8 +267,25 @@ require_once("api/check_session.php");
             });
 
         // Prompt'u gösteren fonksiyon
-        function showPrompt(prompt) {
-            alert(prompt);
+        function showPrompt(prompt, promptCardId) {
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = 'chat.php';
+
+            var promptInput = document.createElement('input');
+            promptInput.type = 'hidden';
+            promptInput.name = 'initial_message';
+            promptInput.value = prompt;
+            form.appendChild(promptInput);
+
+            var promptCardIdInput = document.createElement('input');
+            promptCardIdInput.type = 'hidden';
+            promptCardIdInput.name = 'prompt_card_id';
+            promptCardIdInput.value = promptCardId;
+            form.appendChild(promptCardIdInput);
+
+            document.body.appendChild(form);
+            form.submit();
         }
 
         // Kartları sıralama fonksiyonu
