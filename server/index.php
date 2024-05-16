@@ -20,12 +20,9 @@ require_once("api/check_session.php");
     <link rel="stylesheet" href="src/output.css">
 
     <style>
-     
         .font-raleway {
             font-family: 'Raleway', sans-serif;
         }
-
-
     </style>
 </head>
 
@@ -33,46 +30,54 @@ require_once("api/check_session.php");
     
     <div class="bg-white dark:bg-gray-800 pt-4 pr-8 pb-4 pl-8">
         <nav class="w-full">
-            <div class="flex w-full justify-between max-w-screen-2xl md:flex-row mt-auto mr-auto mb-auto ml-auto">
-                <div class="flex flex-row bg-white dark:bg-gray-800 justify-between items-center mt-2 mb-2 md:m-0 hidden md:flex">
-                    <a href="#" class="text-gray-600 dark:text-gray-300 text-center mr-6 font-medium text-base">Ana Sayfa</a>
-                    <a href="#" class="text-gray-600 dark:text-gray-300 text-center mr-6 font-medium text-base">Özellikler</a>
-                </div>
-                <div class="bg-white dark:bg-gray-800 flex-row flex items-center justify-center order-first md:order-none">
+            <div class="flex w-full justify-between max-w-screen-2xl md:flex-row mt-auto mr-auto mb-auto ml-auto items-center">
+                <div class="flex items-center">
                     <img src="https://res.cloudinary.com/speedwares/image/upload/v1659284687/windframe-logo-main_daes7r.png"
                         alt="Site Logo" class="w-12 md:w-16">
                 </div>
-                    
-                <div class="flex justify-center items-center md:justify-start hidden md:flex">
-                    <img src="./img/mon.svg" alt="Mon Icon" class="mon cursor-pointer w-6 h-6 mr-2">
-                    <img src="./img/sun.svg" alt="Sun Icon" class="sun cursor-pointer w-6 h-6 mr-2">
-                    <a href="api/logout.php">
-                        <button aria-label="Logout" class="h-9 w-24 text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-800 border-2 border-white dark:border-gray-800 flex items-center
-                                    justify-center text-center rounded-lg text-lg font-normal mr-2"
+                <div class="hidden md:flex flex-row bg-white dark:bg-gray-800 justify-between items-center mt-2 mb-2 md:m-0">
+                    <a href="#" class="text-gray-600 dark:text-gray-300 text-center mr-6 font-medium text-base hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200">Ana Sayfa</a>
+                    <a href="#" class="text-gray-600 dark:text-gray-300 text-center mr-6 font-medium text-base hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200">Özellikler</a>
+                    <a href="#" class="text-gray-600 dark:text-gray-300 text-center mr-6 font-medium text-base hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200">Ürün</a>
+                    <a href="#" class="text-gray-600 dark:text-gray-300 text-center mr-6 font-medium text-base hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200">Fiyatlandırma</a>
+                </div>
+               
+                <div class="flex flex-col md:flex-row justify-center items-center md:order-2 space-y-2 md:space-y-0 md:space-x-4">
+                    <label for="theme-toggle" class="inline-flex items-center cursor-pointer ml-2">
+                        <input type="checkbox" id="theme-toggle" class="hidden" onchange="toggleTheme()">
+                        <div class="relative inline-block w-14 h-8 bg-gray-400 rounded-full md:w-16 md:h-10 flex items-center">
+                            <div class="absolute left-1 top-1 w-6 h-6 bg-white rounded-full transition-transform duration-300 ease-in-out transform md:w-8 md:h-8 flex items-center justify-center">
+                                <svg id="sun-icon" class="w-6 h-6 text-yellow-500 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m0 16v2m8-10h2M2 12H4m15.364-7.364l1.414 1.414M4.222 19.778l1.414-1.414M19.778 19.778l-1.414-1.414M4.222 4.222l1.414 1.414M12 6a6 6 0 100 12 6 6 0 000-12z"></path>
+                                </svg>
+                                <svg id="moon-icon" class="w-6 h-6 text-gray-700 hidden md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </label>
+                    <div>
+                    <a href="api/logout.php" class=" md:inline-block">
+                        <button aria-label="Logout" class="category-button flex hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 w-full text-left text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 rounded-md py-2 px-3 justify-between items-center"
                             id="logoutBtn">Logout</button></a>
                 </div>
-                <div class="md:hidden flex items-center">
-                    <div class="outline-none mobile-menu-button">
-                        <svg fill="none" strokelinecap="round" strokewidth="2"
-                            viewBox="0 0 24 24" stroke="currentColor"
-                            class="w-6 h-6 text-gray-500 dark:text-gray-300 hover:text-green-500">
-                            <path d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                    </div>
-                </div>
-        
-            </div>
-            <div class="hidden md:hidden mobile-menu">
-                <div class="flex flex-col">
-                    <a href="#" class="text-gray-600 dark:text-gray-300 text-center mt-2 font-medium text-base">Product</a>
-                    <a href="#" class="text-gray-600 dark:text-gray-300 text-center mt-2 font-medium text-base">Features</a>
-                    <a href="#" class="text-gray-600 dark:text-gray-300 text-center mt-2 font-medium text-base">Pricing</a>
-                    <button class="h-9 w-24 text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-800 border-2 border-white dark:border-gray-800 flex items-center
-              justify-center text-center rounded-lg text-lg font-normal mt-2 mr-auto ml-auto">Sign in</button>
-                    <button class="h-9 w-24 text-white bg-blue-700 hover:bg-blue-900 hover:border-blue-900
-              border-2 flex items-center justify-center text-center border-blue-700 rounded-lg text-lg font-normal mt-2
-              mr-auto ml-auto">Sign up</button>
-                </div>
+                 <!-- hesap bilgileri -->
+                <div class="relative">
+    <button id="accountBtn" class="category-button flex hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 w-full text-left text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 rounded-md py-2 px-3 justify-between items-center">
+        Hesabım
+    </button>
+<div id="accountPopup" class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-lg z-10">
+    <div class="p-4">
+        <p id="userName" class="text-gray-700 dark:text-gray-300"></p>
+        <p id="userEmail" class="text-gray-500 dark:text-gray-400 text-sm"></p>
+
+    </div>
+    <div class="border-t border-gray-200 dark:border-gray-600"></div>
+    <div class="p-4">
+        <a href="api/logout.php" class="text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-600">Çıkış Yap</a>
+    </div>
+</div>
+</div>
             </div>
         </nav>
     </div>
@@ -114,10 +119,6 @@ require_once("api/check_session.php");
                         </ul>
                     </div>
                 </div>
-                <!-- <div class="flex items-center">
-                    <img src="./mon.svg" alt="Mon Icon" class="mon cursor-pointer">
-                    <img src="./sun.svg" alt="Sun Icon" class="sun cursor-pointer">
-                </div> -->
                 <div class="mt-6 pb-2 mb-4 border-b border-gray-200 dark:border-gray-600">
                     <p class="text-lg font-semibold text-gray-700 dark:text-gray-300">Filter By Category</p>
                 </div>
@@ -184,7 +185,7 @@ require_once("api/check_session.php");
                 </svg>
             </button>
             <div class="flex items-center gap-2">
-                <button id="copy" class="hover:yellow-500">
+                <button onclick="starCard(${kart.id})" class="hover:yellow-500">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="feather feather-star">
@@ -299,16 +300,48 @@ require_once("api/check_session.php");
             }
             filterKartlar('all', sortedKartlar); // Filtrelenmiş ve sıralanmış kartları göster
         }
-        //mobile menu
+        // Account popup
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('accountBtn').addEventListener('click', function() {
+        document.getElementById('accountPopup').classList.toggle('hidden');
+    });
 
-        $(document).ready(function() {
-            $(".mobile-menu-button").click(function() {
-                $(".mobile-menu").toggleClass("hidden");
-            });
-        });
-        
+    fetch('api/get_user_info.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('userName').textContent = data.name;
+                document.getElementById('userEmail').textContent = data.email;
+            
+            } else {
+                console.error('Kullanıcı bilgileri alınamadı:', data.error);
+            }
+        })
+});
+
+
+function starCard(cardId) {
+    fetch('api/star_card.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ card_id: cardId })
+    })
+    .then(response => response.json()) // Yanıtı JSON olarak al
+    .then(data => {
+        if (data.success) {
+            alert('Kart başarıyla yıldızlandı!');
+        } else {
+            alert('Kart yıldızlanırken bir hata oluştu: ' + data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Kart yıldızlanamadı:', error);
+    });
+}
+
     </script>
     <script src="src/app.js"></script>
 </body>
 </html>
-

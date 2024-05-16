@@ -75,16 +75,24 @@ $token = bin2hex(random_bytes(64));
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
 // Kullanıcıyı veritabanına ekle
-$statement = $db_cnn->prepare("INSERT INTO users (name, surname, email, password, token) VALUES (:name, :surname, :email, :password, :token)");
-$statement->bindParam(':name', $name);
-$statement->bindParam(':surname', $surname);
-$statement->bindParam(':email', $email);
-$statement->bindParam(':password', $hashedPassword);
-$statement->bindParam(':token', $token);
-$statement->execute();
+try {
+    $statement = $db_cnn->prepare("INSERT INTO users (name, surname, email, password, token, starred_cards) VALUES (:name, :surname, :email, :password, :token, :starred_cards)");
+    $statement->bindParam(':name', $name);
+    $statement->bindParam(':surname', $surname);
+    $statement->bindParam(':email', $email);
+    $statement->bindParam(':password', $hashedPassword);
+    $statement->bindValue(':starred_cards', json_encode([])); // Boş bir dizi olarak başlat
+    $statement->bindParam(':token', $token);
+    $statement->execute();    
+    // Başarılı yanıtı gönder
+    header('Content-Type: application/json');
+    http_response_code(201);
+    echo json_encode(array("token" => $token));
+    //echo json_encode(array("message" => "User registered successfully"));
 
-// Başarılı yanıtı gönder
-header('Content-Type: application/json');
-http_response_code(200);
-echo json_encode(array("token" => $token));
+}
+ catch (PDOException $e) {
+ http_response_code(500);
+    echo json_encode(array("error" => "Database error: " . $e->getMessage()));
+}
 ?>

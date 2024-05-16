@@ -1,3 +1,4 @@
+
 CREATE USER 'admin' @'%' IDENTIFIED BY 'adminpss';
 GRANT ALL PRIVILEGES ON *.* TO 'admin' @'%' WITH
 GRANT OPTION;
@@ -5,6 +6,7 @@ GRANT OPTION;
 FLUSH PRIVILEGES;
 CREATE DATABASE my_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE my_db;
+SET NAMES utf8mb4;
 CREATE TABLE users (
   id int NOT NULL AUTO_INCREMENT,
   name text NOT NULL,
@@ -12,7 +14,7 @@ CREATE TABLE users (
   email text NOT NULL,
   password text NOT NULL,
   token text NOT NULL,
-
+  starred_cards TEXT NOT NULL,
   PRIMARY KEY (id)
 );
 CREATE TABLE categories (

@@ -14,7 +14,7 @@ require_once 'api/check_session.php';
 </head>
 
 <body class="items-center justify-center bg-gray-200 flex min-h-screen">
-    <div class="w-full bg-white rounded-xl shadow-lg max-w-lg p-8">
+    <div class="w-full bg-white rounded-xl shadow-lg max-w-3xl p-8">
         <p class="text-2xl font-bold mb-4">Chatbot</p>
         <p class="text-sm text-gray-600 mb-6">Powered by Mendable and Vercel</p>
         <div class="space-y-6 overflow-y-auto max-h-96" id="message-container">
@@ -113,6 +113,7 @@ require_once 'api/check_session.php';
                 </div>
             `;
             chatMessages.appendChild(messageContainer); // Append message to chat
+            chatMessages.scrollTop = chatMessages.scrollHeight; // Auto scroll to the bottom
         }
 
         // Function to add typing animation
@@ -127,6 +128,7 @@ require_once 'api/check_session.php';
                 <span class="typing-dot" style="animation-delay: 0.4s;">.</span>
             `;
             chatMessages.appendChild(typingContainer);
+            chatMessages.scrollTop = chatMessages.scrollHeight; // Auto scroll to the bottom
         }
 
         // Function to remove typing animation
@@ -197,4 +199,4 @@ require_once 'api/check_session.php';
 </body>
 
 </html>
-</html>
+

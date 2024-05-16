@@ -40,3 +40,53 @@ monIcon.addEventListener("click", () => themeSwitch());
 //invoke theme check on initial load
 themeCheck();
 
+function toggleTheme() {
+    const toggleThumb = document.querySelector('#theme-toggle + div > div');
+    const sunIcon = document.getElementById('sun-icon');
+    const moonIcon = document.getElementById('moon-icon');
+    if (document.documentElement.classList.contains('dark')) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        toggleThumb.classList.remove('translate-x-full');
+        toggleThumb.classList.add('translate-x-0');
+        sunIcon.classList.remove('hidden');
+        moonIcon.classList.add('hidden');
+    } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        toggleThumb.classList.remove('translate-x-0');
+        toggleThumb.classList.add('translate-x-full');
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
+    }
+}
+
+// Sayfa yüklendiğinde tema durumunu kontrol et
+document.addEventListener('DOMContentLoaded', function () {
+    const toggleThumb = document.querySelector('#theme-toggle + div > div');
+    const sunIcon = document.getElementById('sun-icon');
+    const moonIcon = document.getElementById('moon-icon');
+    if (localStorage.getItem('theme') === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.getElementById('theme-toggle').checked = true;
+        toggleThumb.classList.add('translate-x-full');
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
+    } else {
+        document.documentElement.classList.remove('dark');
+        toggleThumb.classList.add('translate-x-0');
+        sunIcon.classList.remove('hidden');
+        moonIcon.classList.add('hidden');
+    }
+});
+document.getElementById('accountBtn').addEventListener('click', function() {
+    document.getElementById('accountPopup').classList.toggle('hidden');
+});
+
+fetch('api/get_user_info.php')
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('userName').textContent = data.name;
+        document.getElementById('userEmail').textContent = data.email;
+    })
+    .catch(error => console.error('Kullanıcı bilgileri alınamadı:', error));
