@@ -97,7 +97,25 @@ require_once 'api/check_session.php';
         var md = window.markdownit();
 
         // Function to display messages in chat interface
-        
+        function displayMessage(role, message) {
+            var chatMessages = document.getElementById('message-container');
+            var messageContainer = document.createElement('div');
+            messageContainer.classList.add('items-start', 'flex', 'space-x-4');
+
+            var iconSrc = role === 'You' ? 'https://placehold.co/32x32?text=User+Icon' : 'https://placehold.co/32x32?text=AI+Icon';
+            var parsedMessage = role === 'AI' ? md.render(message) : message;
+
+            messageContainer.innerHTML = `
+                <img src="${iconSrc}" alt="${role} Icon" class="w-10 h-10 rounded-full"/>
+                <div>
+                    <p class="font-semibold">${role}</p>
+                    <p class="text-gray-700">${parsedMessage}</p>
+                </div>
+            `;
+            chatMessages.appendChild(messageContainer); // Append message to chat
+            chatMessages.scrollTop = chatMessages.scrollHeight; // Auto scroll to the bottom
+        }
+
         // Function to add typing animation
         function displayTypingAnimation() {
             var chatMessages = document.getElementById('message-container');
@@ -121,132 +139,47 @@ require_once 'api/check_session.php';
             }
         }
 
-            document.addEventListener('DOMContentLoaded', function () {
-        var token = localStorage.getItem('token');
-        var promptCardId = document.getElementById('prompt_card_id').value;
+        document.addEventListener('DOMContentLoaded', function () {
+            var initialMessage = "<?php echo isset($_POST['initial_message']) ? $_POST['initial_message'] : ''; ?>";
+            var promptCardId = "<?php echo isset($_POST['prompt_card_id']) ? $_POST['prompt_card_id'] : ''; ?>";
 
-        if (token) {
+            if (initialMessage) {
+                sendMessage(initialMessage, promptCardId);
+            }
+        });
+
+        function sendMessage(message, promptCardId) {
+            displayMessage('You', message);
+            displayTypingAnimation();
+
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'api/get_chat_history.php', true);
+            xhr.open('POST', 'api/chat.php', true);
             xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.setRequestHeader('Authorization', token);
+            xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
 
             xhr.onload = function () {
                 if (xhr.status === 200) {
-                    var chatHistory = JSON.parse(xhr.responseText);
-                    if (chatHistory.length > 0) {
-                        chatHistory.forEach(function (message) {
-                            displayMessage('You', message.user_message);
-                            displayMessage('AI', message.response);
-                        });
-                    } else {
-                        // Eğer sohbet geçmişi yoksa, ilk promptu gönder
-                        var initialMessage = "<?php echo isset($_POST['initial_message']) ? $_POST['initial_message'] : ''; ?>";
-                        if (initialMessage) {
-                            sendMessage(initialMessage, promptCardId);
-                        }
-                    }
+                    var responseData = JSON.parse(xhr.responseText);
+                    removeTypingAnimation();
+                    displayMessage('AI', JSON.parse(JSON.stringify(responseData.response)));
+                    isWaitingForResponse = false;
                 } else {
                     console.error('Request failed. Error:', xhr.statusText);
+                    isWaitingForResponse = false;
                 }
             };
 
             xhr.onerror = function () {
                 console.error('Request failed');
+                isWaitingForResponse = false;
             };
 
             var requestData = {
+                user_message: message,
                 prompt_card_id: promptCardId
             };
             xhr.send(JSON.stringify(requestData));
-        } else {
-            console.error('Token not found in localStorage');
         }
-    });
-
-    function displayMessage(role, message) {
-        var chatMessages = document.getElementById('message-container');
-        var messageContainer = document.createElement('div');
-        messageContainer.classList.add('items-start', 'flex', 'space-x-4');
-
-        var iconSrc = role === 'You' ? 'https://placehold.co/32x32?text=User+Icon' : 'https://placehold.co/32x32?text=AI+Icon';
-        var parsedMessage = role === 'AI' ? md.render(message) : message;
-
-        messageContainer.innerHTML = `
-            <img src="${iconSrc}" alt="${role} Icon" class="w-10 h-10 rounded-full"/>
-            <div>
-                <p class="font-semibold">${role}</p>
-                <p class="text-gray-700">${parsedMessage}</p>
-            </div>
-        `;
-        chatMessages.appendChild(messageContainer);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-
-    function sendMessage(message, promptCardId) {
-        displayMessage('You', message);
-        displayTypingAnimation();
-
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'api/chat.php', true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
-
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                var responseData = JSON.parse(xhr.responseText);
-                removeTypingAnimation();
-                displayMessage('AI', responseData.response);
-                isWaitingForResponse = false;
-            } else {
-                console.error('Request failed. Error:', xhr.statusText);
-                isWaitingForResponse = false;
-            }
-        };
-
-        xhr.onerror = function () {
-            console.error('Request failed');
-            isWaitingForResponse = false;
-        };
-
-        var requestData = {
-            user_message: message,
-            prompt_card_id: promptCardId
-        };
-        xhr.send(JSON.stringify(requestData));
-    }
-    //delete 
-    document.getElementById('clear-button').addEventListener('click', function () {
-            var token = localStorage.getItem('token');
-            var promptCardId = document.getElementById('prompt_card_id').value;
-
-            if (token) {
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', 'api/clear_chat_history.php', true);
-                xhr.setRequestHeader('Content-Type', 'application/json');
-                xhr.setRequestHeader('Authorization', token);
-
-                xhr.onload = function () {
-                    if (xhr.status === 200) {
-                        var chatMessages = document.getElementById('message-container');
-                        chatMessages.innerHTML = ''; // Clear chat messages
-                    } else {
-                        console.error('Request failed. Error:', xhr.statusText);
-                    }
-                };
-
-                xhr.onerror = function () {
-                    console.error('Request failed');
-                };
-
-                var requestData = {
-                    prompt_card_id: promptCardId
-                };
-                xhr.send(JSON.stringify(requestData));
-            } else {
-                console.error('Token not found in localStorage');
-            }
-        });
     </script>
     <style>
         .loader {
