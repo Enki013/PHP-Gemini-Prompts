@@ -1,4 +1,4 @@
-sPHP-GEMINI-PROMPTS
+PHP-GEMINI-PROMPTS
 =======================
 
 About the Project
