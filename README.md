@@ -1,4 +1,4 @@
-PHP-GEMINI-PROMPTS
+sPHP-GEMINI-PROMPTS
 =======================
 
 About the Project
@@ -49,15 +49,16 @@ Installation
 ### Setting Up a Local Development Environment
 
 -   Clone the project from GitHub:
-
-       git clone https://github.com/Enki013/PHP-Gemini-Prompts.git
-
+```sh
+   git clone https://github.com/Enki013/PHP-Gemini-Prompts.git
+```
 2. Start the Docker containers:
-
+```sh
    cd your-repository
-
+```
+```sh
    docker-compose up -d
-
+```
 3. Access the application via a browser:
 
    http://localhost:8000
