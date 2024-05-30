@@ -50,7 +50,7 @@ Installation
 
 -   Clone the project from GitHub:
 
-       git clone https://github.com/your-repository.git
+       git clone https://github.com/Enki013/PHP-Gemini-Prompts.git
 
 2. Start the Docker containers:
 
