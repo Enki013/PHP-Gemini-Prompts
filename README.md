@@ -74,7 +74,8 @@ Users can perform registration and login processes from the homepage.
 
 ### Content Exploration
 
-Users can select categories according to their interests and view prompt cards related to these categories.
+Users can select categories according to their interests and view prompt cards related to these categories. Then, they can chat with Gemini.
+
 
 Contributing
 ------------
