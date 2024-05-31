@@ -174,62 +174,53 @@ var isWaitingForResponse = false;
     const sendButton = document.getElementById('send-button'); // sendButton değişkenini tanımla
 
 document.getElementById('chat-form').addEventListener('submit', function (event) {
-        event.preventDefault(); // Prevent form submission
+    event.preventDefault(); // Form gönderimini engelle
 
-        if (isWaitingForResponse) {
-            return; // If waiting, prevent new message submission
+    if (isWaitingForResponse) {
+        return; // Eğer yanıt bekleniyorsa, yeni mesaj gönderimini engelle
+    }
+
+    isWaitingForResponse = true; // Yanıt bekleniyor
+
+    var userMessage = document.getElementById('user_message').value; // Kullanıcı mesajını al
+
+    displayMessage('You', userMessage); // Kullanıcı mesajını göster
+
+    document.getElementById('user_message').value = ''; // Mesaj kutusunu temizle
+
+    displayTypingAnimation(); // Yazıyor animasyonunu göster
+
+    sendButton.innerHTML = `<div class="loader"></div>`; // Gönder butonunu değiştir
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'api/chat.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            var responseData = JSON.parse(xhr.responseText);
+            removeTypingAnimation(); // Yazıyor animasyonunu kaldır
+            displayMessage('AI', responseData.response); // AI yanıtını göster
+            sendButton.innerHTML = 'Send'; // Gönder butonunu eski haline getir
+            isWaitingForResponse = false; // Yanıt alındı
+        } else {
+            console.error('Request failed. Error:', xhr.statusText);
+            isWaitingForResponse = false; // Yanıt alındı
         }
+    };
 
-        isWaitingForResponse = true; // Waiting for response
+    xhr.onerror = function () {
+        console.error('Request failed');
+        isWaitingForResponse = false; // Yanıt alındı
+    };
 
-        // Get user input
-        var userMessage = document.getElementById('user_message').value;
-
-        // Display user message
-        displayMessage('You', userMessage);
-
-        // Clear message box
-        document.getElementById('user_message').value = '';
-
-        // Add typing animation
-        displayTypingAnimation();
-
-
-
-        // Send user input to chat.php using AJAX
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'api/chat.php', true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
-
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                // Display response
-                var responseData = JSON.parse(xhr.responseText);
-                removeTypingAnimation();
-                displayMessage('AI', responseData.response);
-                // Change send button back
-                sendButton.innerHTML = `Send`;
-                isWaitingForResponse = false; // Response received
-            } else {
-                console.error('Request failed. Error:', xhr.statusText);
-                isWaitingForResponse = false; // Response received
-            }
-        };
- 
-        xhr.onerror = function () {
-            console.error('Request failed');
-            isWaitingForResponse = false; // Response received
-        };
-
-        // Data
-        var requestData = {
-            user_message: userMessage,
-            prompt_card_id: 2
-        };
-        // Send data as JSON
-        xhr.send(JSON.stringify(requestData));
-    });
+    var requestData = {
+        user_message: userMessage,
+        prompt_card_id: 2
+    };
+    xhr.send(JSON.stringify(requestData)); // Veriyi JSON olarak gönder
+});
 
     var md = window.markdownit();
 
