@@ -76,6 +76,11 @@ Users can perform registration and login processes from the homepage.
 
 Users can select categories according to their interests and view prompt cards related to these categories. Then, they can chat with Gemini.
 
+Screenshots
+-----
+![Screenshot 2024-05-31 052031](https://github.com/Enki013/PHP-Gemini-Prompts/assets/39771190/930dde41-4287-4bc7-a7e6-bb39d13cc4bf)
+
+<img src="https://github.com/Enki013/PHP-Gemini-Prompts/assets/39771190/cad613d1-6380-4ed3-9e64-47d5e28fec7d" width="70%">
 
 Contributing
 ------------
