@@ -4,7 +4,7 @@ PHP-GEMINI-PROMPTS
 About the Project
 -----------------
 
-This project is a dynamic web application where users can interact by accessing prompt cards in various categories. The application allows users to register, log in, and explore content according to their interests.
+This project is a dynamic web application where users can interact by accessing prompt cards in various categories. The application allows users to register, log in, and explore gemini prompts according to their interests.
 
 Features
 --------
