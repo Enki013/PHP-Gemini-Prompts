@@ -1,7 +1,6 @@
 <?php
 require_once 'api/check_session.php';
 ?>
-<!-- Coding by CodingLab | www.codinglabweb.com -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,9 +10,7 @@ require_once 'api/check_session.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script>
-    <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> -->
 
-    <!----===== Boxicons CSS ===== -->
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
 
     <title id="pageTitle">Act As;</title>
@@ -24,17 +21,11 @@ require_once 'api/check_session.php';
     <nav class="sidebar close">
         <header>
             <div class="image-text">
-                <span class="image">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" style="border-radius: 50%; overflow: hidden;">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                    </svg>
-
                 <div class="text logo-text">
                     <span class="name" id="userName">Loading...</span>
                     <span class="email" id="userEmail">Loading...</span>
                 </div>
             </div>
-
             <i class='bx bx-chevron-right toggle'></i>
         </header>
 
@@ -50,7 +41,7 @@ require_once 'api/check_session.php';
                     <li class="nav-link">
                         <a href="index.php">
                             <i class='bx bx-home-alt icon'></i>
-                            <span class="text nav-text">Ana Sayfa</span>
+                            <span class="text nav-text">Main Page</span>
                         </a>
                     </li>
 
@@ -102,7 +93,6 @@ require_once 'api/check_session.php';
     <section class="home">
         <div class="text" id="pageTitle">Powered By Gemini</div>
         <div class="messages" id="message-container">
-            <!-- Messages will be appended here -->
         </div>
     </section>
 
@@ -141,13 +131,23 @@ require_once 'api/check_session.php';
             sidebar.classList.remove("close");
         })
 
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                body.classList.add('dark');
+                modeText.innerText = "Light mode";
+            }
+        });
+
         modeSwitch.addEventListener("click", () => {
             body.classList.toggle("dark");
 
             if (body.classList.contains("dark")) {
                 modeText.innerText = "Light mode";
+                localStorage.setItem('theme', 'dark');
             } else {
                 modeText.innerText = "Dark mode";
+                localStorage.setItem('theme', 'light');
             }
         });
 
@@ -169,28 +169,29 @@ require_once 'api/check_session.php';
         }
 
         
-// --------------
 var isWaitingForResponse = false;
-    const sendButton = document.getElementById('send-button'); // sendButton değişkenini tanımla
+    const sendButton = document.getElementById('send-button'); 
 
 document.getElementById('chat-form').addEventListener('submit', function (event) {
-    event.preventDefault(); // Form gönderimini engelle
+    event.preventDefault();
 
-    if (isWaitingForResponse) {
-        return; // Eğer yanıt bekleniyorsa, yeni mesaj gönderimini engelle
+    var userMessage = document.getElementById('user_message').value.trim();
+    
+    if (!userMessage) {
+        return;
     }
 
-    isWaitingForResponse = true; // Yanıt bekleniyor
+    if (isWaitingForResponse) {
+        return;
+    }
 
-    var userMessage = document.getElementById('user_message').value; // Kullanıcı mesajını al
-
-    displayMessage('You', userMessage); // Kullanıcı mesajını göster
-
-    document.getElementById('user_message').value = ''; // Mesaj kutusunu temizle
-
-    displayTypingAnimation(); // Yazıyor animasyonunu göster
-
-    sendButton.innerHTML = `<div class="loader"></div>`; // Gönder butonunu değiştir
+    isWaitingForResponse = true;
+    
+    sendButton.innerHTML = '<div class="loader"></div>';
+    
+    displayMessage('You', userMessage);
+    document.getElementById('user_message').value = '';
+    displayTypingAnimation();
 
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'api/chat.php', true);
@@ -200,31 +201,38 @@ document.getElementById('chat-form').addEventListener('submit', function (event)
     xhr.onload = function () {
         if (xhr.status === 200) {
             var responseData = JSON.parse(xhr.responseText);
-            removeTypingAnimation(); // Yazıyor animasyonunu kaldır
-            displayMessage('AI', responseData.response); // AI yanıtını göster
-            sendButton.innerHTML = 'Send'; // Gönder butonunu eski haline getir
-            isWaitingForResponse = false; // Yanıt alındı
+            removeTypingAnimation();
+            displayMessage('AI', responseData.response);
+            sendButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 32 32" class="icon-2xl">
+                <path fill="currentColor" fill-rule="evenodd" d="M15.192 8.906a1.143 1.143 0 0 1 1.616 0l5.143 5.143a1.143 1.143 0 0 1-1.616 1.616l-3.192-3.192v9.813a1.143 1.143 0 0 1-2.286 0v-9.813l-3.192 3.192a1.143 1.143 0 1 1-1.616-1.616z" clip-rule="evenodd"></path>
+            </svg>`;
+            isWaitingForResponse = false;
         } else {
             console.error('Request failed. Error:', xhr.statusText);
-            isWaitingForResponse = false; // Yanıt alındı
+            sendButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 32 32" class="icon-2xl">
+                <path fill="currentColor" fill-rule="evenodd" d="M15.192 8.906a1.143 1.143 0 0 1 1.616 0l5.143 5.143a1.143 1.143 0 0 1-1.616 1.616l-3.192-3.192v9.813a1.143 1.143 0 0 1-2.286 0v-9.813l-3.192 3.192a1.143 1.143 0 1 1-1.616-1.616z" clip-rule="evenodd"></path>
+            </svg>`;
+            isWaitingForResponse = false;
         }
     };
 
     xhr.onerror = function () {
         console.error('Request failed');
-        isWaitingForResponse = false; // Yanıt alındı
+        sendButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 32 32" class="icon-2xl">
+            <path fill="currentColor" fill-rule="evenodd" d="M15.192 8.906a1.143 1.143 0 0 1 1.616 0l5.143 5.143a1.143 1.143 0 0 1-1.616 1.616l-3.192-3.192v9.813a1.143 1.143 0 0 1-2.286 0v-9.813l-3.192 3.192a1.143 1.143 0 1 1-1.616-1.616z" clip-rule="evenodd"></path>
+        </svg>`;
+        isWaitingForResponse = false;
     };
 
     var requestData = {
         user_message: userMessage,
         prompt_card_id: 2
     };
-    xhr.send(JSON.stringify(requestData)); // Veriyi JSON olarak gönder
+    xhr.send(JSON.stringify(requestData)); 
 });
 
     var md = window.markdownit();
 
-    // Function to display messages in chat interface
     function displayMessage(role, message) {
         var chatMessages = document.getElementById('message-container');
         var messageContainer = document.createElement('div');
@@ -238,8 +246,8 @@ document.getElementById('chat-form').addEventListener('submit', function (event)
                 <p >${parsedMessage}</p>
             </div>
         `;
-        chatMessages.appendChild(messageContainer); // Append message to chat
-        chatMessages.scrollTop = chatMessages.scrollHeight; // Auto scroll to the bottom
+        chatMessages.appendChild(messageContainer); 
+        chatMessages.scrollTop = chatMessages.scrollHeight; 
     }
         document.addEventListener('DOMContentLoaded', function () {
         var initialMessage = "<?php echo isset($_POST['initial_message']) ? $_POST['initial_message'] : ''; ?>";
