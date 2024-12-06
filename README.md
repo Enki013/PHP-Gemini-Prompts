@@ -54,7 +54,7 @@ Installation
 ```
 2. Start the Docker containers:
 ```sh
-   cd your-repository
+   cd PHP-Gemini-Prompts
 ```
 ```sh
    docker-compose up -d
